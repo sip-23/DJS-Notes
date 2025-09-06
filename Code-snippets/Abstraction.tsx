@@ -58,6 +58,7 @@ function generateUUID() {
     );
 }
 
+import { error } from "console";
 // @ts-check (allows us to be diligent and produces an error is something is not correct and doesnt do what we said it would do)
 
 // This pulls out the essence and hides the low-level things that are not important
@@ -74,10 +75,18 @@ console.log(uuid);
 // uses generateUUID() within it.
 
 /**
+ * @typedef {object} Employee
+ * @prop {string} uuid
  * @param {String} name - takes the legal name of employee as appearing on their ID
- * @return {Employee}
+ * @prop {string} company
+ * @prop {Date} created
  */
-export createEmployee = (name, company) => {
+
+/**
+ * @param {string} name
+ * @return {Employee} 
+ */
+export const createEmployee = (name, company) => {
     const uuid = generateUUID()
 
     return {
@@ -112,8 +121,26 @@ createInspector("Big Boss");
 
 // Abstraction 6: Event with the attendees log
 // You can also use Props
+// OCP
+// LSP
 
 const createEvent = ({attendees, title}) => {
+    const response = {};
+
+    for (const { name: attendeeName, company} of attendees) {
+        if (company === "CodeSpace") {
+            const answer = window.prompt(`Is ${attendeeName} attending?`);
+
+            if (!answer || answer.trim() === "")
+                throw new Error("Answer can not be empty");
+
+            response[attendeeName] = answer;
+        } else if (company === "South African Gov") {
+            response[attendeeName] = "Awaiting response";
+        } else {
+            response[attendeeName] = "Not required";
+        }
+    }
     return {
         title,
         attendees, 
@@ -330,7 +357,7 @@ const addTasktoHTML = (id) => {
     list.appendChild(preview);
 };
 
-addTasktoHTML();
+addTasktoHTML("test");
 
 /**
  * Creating an Abstraction:

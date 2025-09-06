@@ -1,3 +1,6 @@
+// to import a type definition from a file, create a const export with the same name as the type definition
+
+
 /**
  * @typedef {'high' | 'medium' | 'low'} Urgency - The priority that the tasks
  * should take in terms of how quickly it should be completed
@@ -18,6 +21,8 @@
  * @prop {null | Date} due - A user specified date for when the task should be completed
  * @prop {Urgency} urgency - A user specified indication of how important the task
  */
+
+export const Task = {}
 
 /**
  * @typedef {object} Filters - User configured filter values that control what tasks are shown.
