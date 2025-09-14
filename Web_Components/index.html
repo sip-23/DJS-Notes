@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcast Preview Web Component</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+    <!-- configur tailwind to work on classes -->
+    <script> tailwind.config = {darkMode: 'class'}</script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+    <style>
+        /* Hide the original element until the web component is loaded */
+        podcast-preview:not(:defined) {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-[#121212] min-h-screen flex items-center justify-center p-4">
+    <div class="container mx-auto">
+        <h1 class="text-3xl font-bold text-white mb-2 text-center">Podcast Library</h1>
+        <p class="text-center text-gray-400 mb-8">Dynamic podcast previews loaded from external data files</p>
+        
+        <!-- Filter controls -->
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+            <select id="genre-filter" class="bg-[#282828] text-white px-4 py-2 rounded-md">
+                <option value="all">All Genres</option>
+            </select>
+            
+            <select id="sort-by" class="bg-[#282828] text-white px-4 py-2 rounded-md">
+                <option value="title">Sort by Title</option>
+                <option value="recent">Sort by Recent</option>
+                <option value="seasons">Sort by Seasons</option>
+            </select>
+        </div>
+        <!-- Podcasts container -->
+        <div id="podcasts-container" class="flex flex-wrap justify-center gap-6"></div>
+    </div>
+    <script defer src="todoItem.js"></script>
+    <script defer src="loadingData.js"></script>
+    <script defer src="main.js"></script>
+</body>
+</html>
