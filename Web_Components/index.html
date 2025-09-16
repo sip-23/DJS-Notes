@@ -75,7 +75,7 @@
         
         <!-- Filter controls -->
         <div class="flex flex-wrap justify-center gap-4 mb-8 mt-[70px]">
-            <select id="genre-filter" class="bg-[#282828] text-white px-4 py-2 rounded-md">
+            <select id="genreFilter" class="bg-[#282828] text-white px-4 py-2 rounded-md">
                 <option value="all">All Genres</option>
             </select>
             
@@ -86,10 +86,12 @@
             </select>
         </div>
         <!-- Podcasts container -->
-        <div id="podcasts-container" class="flex flex-wrap justify-center gap-6"></div>
+        <div id="podcasts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4 mx-auto"></div>
+        <podcast-modal></podcast-modal>
     </div>
-    <script defer src="podcastpreview.js"></script>
-    <script defer src="loadingData.js"></script>
-    <script defer src="main.js"></script>
+    <script defer src="./podcastpreview.js"></script>
+    <script type="module" src="./loadingData.js"></script>
+    <script type="module" src="./podcastModal.js"></script>
+    <script type="module" src="./main.js"></script>
 </body>
 </html>

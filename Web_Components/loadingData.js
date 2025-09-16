@@ -3,71 +3,47 @@ const genreFilter = document.getElementById('genre-filter');
 const sortBy = document.getElementById('sort-by');
 
 // Function to load podcast data
-async function loadPodcastData() {
+export async function loadPodcastData() {
     const module = await import("./data.js"); // relative path
     return { podcasts: module.podcasts, genres: module.genres };
 }
 
+export function populateGenreFilter(genres) {
+  if (!genreFilter) return;
+  genres.forEach((genre) => {
+    const option = document.createElement("option");
+    option.value = genre.id;
+    option.textContent = genre.title;
+    genreFilter.appendChild(option);
+  });
+}
+
 // Function to populate the genre filter dropdown
-function populateGenreFilter(genres) {
-    genres.forEach(genre => {
-        const option = document.createElement('option');
-        option.value = genre.id;
-        option.textContent = genre.title;
-        genreFilter.appendChild(option);
-    });
-}
+export function displayPodcasts(podcasts, genres) {
+  if (!podcastsContainer) {
+    console.error("No #podcasts-container found in DOM");
+    return;
+  }
 
-// Function to display podcasts
-function displayPodcasts(podcasts, genres) {
-    podcastsContainer.innerHTML = '';
-    
-    podcasts.forEach(podcast => {
-        // Get genre names for this podcast
-        const podcastGenres = genres
-            .filter(genre => podcast.genres.includes(genre.id))
-            .map(genre => genre.title);
-        
-        // Create the custom element
-        const podcastElement = document.createElement('podcast-preview');
-        podcastElement.id = podcast.id;
-        podcastElement.setAttribute('image', podcast.image);
-        podcastElement.setAttribute('title', podcast.title);
-        podcastElement.setAttribute('genres', JSON.stringify(podcastGenres));
-        podcastElement.setAttribute('seasons', podcast.seasons);
-        podcastElement.setAttribute('updated', podcast.updated);
-        podcastElement.setAttribute('likes', Math.floor(Math.random() * 200) + 50);
-        
-        podcastsContainer.appendChild(podcastElement);
-    });
-}
+  podcastsContainer.innerHTML = "";
 
-// Function to filter and sort podcasts
-function filterAndSortPodcasts(podcasts, genres) {
-    const selectedGenre = genreFilter.value;
-    const sortCriteria = sortBy.value;
-    
-    // Filter podcasts by genre
-    let filteredPodcasts = podcasts;
-    if (selectedGenre !== 'all') {
-        filteredPodcasts = podcasts.filter(podcast => 
-            podcast.genres.includes(parseInt(selectedGenre))
-        );
-    }
-    
-    // Sort podcasts
-    switch(sortCriteria) {
-        case 'title':
-            filteredPodcasts.sort((a, b) => a.title.localeCompare(b.title));
-            break;
-        case 'recent':
-            filteredPodcasts.sort((a, b) => new Date(b.updated) - new Date(a.updated));
-            break;
-        case 'seasons':
-            filteredPodcasts.sort((a, b) => b.seasons - a.seasons);
-            break;
-    }
-    
-    // Display the filtered and sorted podcasts
-    displayPodcasts(filteredPodcasts, genres);
+  podcasts.forEach((podcast) => {
+    // Map genre IDs → titles
+    const podcastGenres = genres
+      .filter((g) => podcast.genres.includes(g.id))
+      .map((g) => g.title);
+
+    // Build card
+    const card = document.createElement("div");
+    card.className = "podcast-card cursor-pointer p-4 bg-[#282828] rounded-md";
+    card.setAttribute("data-id", podcast.id);
+    card.innerHTML = `
+      <img src="${podcast.image}" alt="${podcast.title}" 
+           class="w-full h-40 object-cover rounded-md mb-2">
+      <h3 class="text-white text-lg font-semibold">${podcast.title}</h3>
+      <p class="text-sm text-gray-400">${podcastGenres.join(", ")}</p>
+    `;
+
+    podcastsContainer.appendChild(card);
+  });
 }
