@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image" href="assets/SippiCup_logo.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+    <!-- configur tailwind to work on classes -->
+    <script> tailwind.config = {darkMode: 'class'}</script>
+    <link rel="stylesheet" href="/styles.css" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SippiCup</title>
+  </head>
+  <body>
+    <div class="h-full flex flex-col overflow-y">
+    <!-- Top Navigation Bar -->
+    <header class="top-0 left-0 right-0 bg-[#121212] w-full h-[70px] px-2 md:px-6 py-2 gap-6 fixed flex-shrink-0 flex-1 flex items-center md:justify-between z-50 border-b border-[#333]">
+        <!-- Logo -->
+        <div class="flex items-center justify-between lg:justify-around gap-3">     
+          <svg class="ml-1 md:ml-6" xmlns="http://www.w3.org/2000/svg" fill="#b3b3b3" width="22" height="22" viewBox="0 0 56 56"><path d="M 40.3163 3.2969 C 33.7070 3.2969 27.3320 7.8438 27.3320 17.5234 L 27.3320 24.9063 L 7.2460 24.9063 C 4.1288 24.9063 2.6757 26.3828 2.6757 29.7344 L 2.6757 47.8750 C 2.6757 51.2266 4.1288 52.7031 7.2460 52.7031 L 30.8242 52.7031 C 33.9413 52.7031 35.3944 51.2266 35.3944 47.8750 L 35.3944 29.7344 C 35.3944 26.5000 34.0351 25.0234 31.1054 24.9297 L 31.1054 17.0313 C 31.1054 10.3750 35.4179 6.8828 40.3163 6.8828 C 45.2382 6.8828 49.5505 10.3750 49.5505 17.0313 L 49.5505 22.4219 C 49.5505 24.0860 50.3708 24.7891 51.4489 24.7891 C 52.4804 24.7891 53.3243 24.1563 53.3243 22.4922 L 53.3243 17.5234 C 53.3243 7.8438 46.9259 3.2969 40.3163 3.2969 Z"/></svg>
+          <button class="transition-colors hover:bg-[#b3b3b3]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16">
+              <g fill="#b3b3b3">
+                <path d="m 1 2 h 14 v 2 h -14 z m 0 0"/>
+                <path d="m 1 7 h 14 v 2 h -14 z m 0 0"/>
+                <path d="m 1 12 h 14 v 2 h -14 z m 0 0"/>
+              </g>
+            </svg>
+          </button>
+          <img width="200px" class="flex items-center lg:ml-[40px]" src="assets/SippiCupPod Logo Dark NoBG.png" alt="SippiCup full logo"/> <!--class="hidden dark:block" -->
+          <!-- <img class="dark:hidden" width="200px" class="ml-[40px]" src="assets/SippiCupPod Logo Light NoBG.png" alt="SippiCup full logo"/> -->
+        </div>
+        
+        <!-- Search container -->
+        <div class="hidden md:block md:flex md:items-center md:w-[300px] lg:w-[400px] md:h-12 md:px-3">
+            <svg class="mr-3" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="#b3b3b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <input 
+                type="text" 
+                placeholder="Search" 
+                id="searchInput"
+                class="border rounded-[16px] opacity-30 bg-[#121212] w-full py-2 px-4 placeholder:text-[#b3b3b3] text-white hover:border-[#9A7B4F]" 
+            />
+        </div>
+        
+        <!-- Icons container -->
+        <div class="flex items-center gap-3 mr-3 lg:mr-[80px]">
+            <div class="hidden lg:block rounded-full w-[40px] h-[40px] bg-[#65350F] grid place-items-center cursor-pointer hover:bg-[#9A7B4F] p-1 mr-3">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 8C18 6.4087 17.3679 4.88258 16.2426 3.75736C15.1174 2.63214 13.5913 2 12 2C10.4087 2 8.88258 2.63214 7.75736 3.75736C6.63214 4.88258 6 6.4087 6 8C6 15 3 17 3 17H21C21 17 18 15 18 8Z" stroke="#b3b3b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21" stroke="#b3b3b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="hidden lg:block rounded-full w-[40px] h-[40px] bg-[#65350F] grid place-items-center cursor-pointer hover:bg-[#9A7B4F] p-1 mr-3">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 19.5C4 18.837 4.26339 18.2011 4.73223 17.7322C5.20107 17.2634 5.83696 17 6.5 17H20" stroke="#b3b3b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6.5 2H20V22H6.5C5.83696 22 5.20107 21.7366 4.73223 21.2678C4.26339 20.7989 4 20.163 4 19.5V4.5C4 3.83696 4.26339 3.20107 4.73223 2.73223C5.20107 2.26339 5.83696 2 6.5 2V2Z" stroke="#b3b3b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="rounded-full w-[40px] h-[40px] bg-[#65350F] grid place-items-center cursor-pointer hover:bg-[#9A7B4F] mr-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none">
+                <path d="M12.1207 12.78C12.0507 12.77 11.9607 12.77 11.8807 12.78C10.1207 12.72 8.7207 11.28 8.7207 9.50998C8.7207 7.69998 10.1807 6.22998 12.0007 6.22998C13.8107 6.22998 15.2807 7.69998 15.2807 9.50998C15.2707 11.28 13.8807 12.72 12.1207 12.78Z" stroke="#b3b3b3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M18.7398 19.3801C16.9598 21.0101 14.5998 22.0001 11.9998 22.0001C9.39977 22.0001 7.03977 21.0101 5.25977 19.3801C5.35977 18.4401 5.95977 17.5201 7.02977 16.8001C9.76977 14.9801 14.2498 14.9801 16.9698 16.8001C18.0398 17.5201 18.6398 18.4401 18.7398 19.3801Z" stroke="#b3b3b3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#b3b3b3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="h-screen flex flex-1 flex-shrink-0 relative overflow-x mt-[60px]">        
+
+        <!-- Sidebar -->
+        <aside id="sidebar" class="hidden absolute lg:relative lg:h-full lg:h-fit pt-6 w-[350px] bg-[#121212] flex-shrink-0 p-5 z-40 border-r border-[#333]">
+            <div class="w-full flex flex-col ">
+                <button class="flex items-center w-[315px] h-[55px] -mx-5 gap-3 cursor-pointer rounded-l rounded-full transition-colors hover:bg-[#65350F]">
+                  <div class="flex items-center gap-3 ml-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#b3b3b3" width="22px" height="22px" viewBox="0 0 32 32" version="1.1">
+                      <title>house</title>
+                      <path d="M0 16h4l12-13.696 12 13.696h4l-13.984-16h-4zM4 32h8v-9.984q0-0.832 0.576-1.408t1.44-0.608h4q0.8 0 1.408 0.608t0.576 1.408v9.984h8v-13.408l-12-13.248-12 13.248v13.408zM26.016 6.112l4 4.576v-8.672h-4v4.096z"/>
+                    </svg>
+                    <span class="font-medium text-[#b3b3b3] text-[14.5px]">Home</span>
+                  </div>
+                </button>
+                <button class="flex items-center w-[315px] h-[55px] -mx-5 gap-3 cursor-pointer rounded-l rounded-full transition-colors hover:bg-[#65350F]">
+                  <div class="flex items-center gap-3 ml-6">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="#b3b3b3" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 11H5M19 11C20.1046 11 21 11.8954 21 13V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V13C3 11.8954 3.89543 11 5 11M19 11V7C19 5.89543 18.1046 5 17 5M5 11V7C5 5.89543 5.89543 5 7 5M7 5V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V5M7 5H17" stroke="#b3b3b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="font-medium text-[#b3b3b3] text-[14.5px]">Library</span>
+                  </div>
+                </button>
+                <button class="flex items-center w-[315px] h-[55px] -mx-5 gap-3 cursor-pointer rounded-l rounded-full transition-colors hover:bg-[#65350F]">
+                  <div class="flex items-center gap-3 ml-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="22px" viewBox="0 -2.5 21 21" version="1.1">
+                        <title>love [#1489]</title>
+                        <desc>Created with Sketch.</desc>
+                        <defs></defs>
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="#b3b3b3" fill-rule="evenodd">
+                            <g id="Dribbble-Light-Preview" transform="translate(-99.000000, -362.000000)" fill="#b3b3b3">
+                                <g id="icons" transform="translate(56.000000, 160.000000)">
+                                    <path d="M55.5929644,215.348992 C55.0175653,215.814817 54.2783665,216.071721 53.5108177,216.071721 C52.7443189,216.071721 52.0030201,215.815817 51.4045211,215.334997 C47.6308271,212.307129 45.2284309,210.70073 45.1034811,207.405962 C44.9722313,203.919267 48.9832249,202.644743 51.442321,205.509672 C51.9400202,206.088455 52.687619,206.420331 53.4940177,206.420331 C54.3077664,206.420331 55.0606152,206.084457 55.5593644,205.498676 C57.9649106,202.67973 62.083004,203.880281 61.8950543,207.507924 C61.7270546,210.734717 59.2322586,212.401094 55.5929644,215.348992 M53.9066671,204.31012 C53.8037672,204.431075 53.6483675,204.492052 53.4940177,204.492052 C53.342818,204.492052 53.1926682,204.433074 53.0918684,204.316118 C49.3717243,199.982739 42.8029348,202.140932 43.0045345,207.472937 C43.1651842,211.71635 46.3235792,213.819564 50.0426732,216.803448 C51.0370217,217.601149 52.2739197,218 53.5108177,218 C54.7508657,218 55.9898637,217.59915 56.9821122,216.795451 C60.6602563,213.815565 63.7787513,211.726346 63.991901,207.59889 C64.2754005,202.147929 57.6173611,199.958748 53.9066671,204.31012" id="love-[#1489]"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                    <span class="font-medium text-[#b3b3b3] text-[14.5px]">Popular</span>
+                  </div>
+                </button>
+                <button class="flex items-center w-[315px] h-[55px] -mx-5 gap-3 cursor-pointer rounded-l rounded-full transition-colors hover:bg-[#65350F]">
+                  <div class="flex items-center gap-3 ml-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="22px" viewBox="0 -0.5 21 21" version="1.1">
+                          <title>filter [#1384]</title>
+                          <desc>Created with Sketch.</desc>
+                          <defs></defs>
+                          <g id="Page-1" stroke="none" stroke-width="1" fill="#b3b3b3" fill-rule="evenodd">
+                              <g id="Dribbble-Light-Preview" transform="translate(-299.000000, -760.000000)" fill="#b3b3b3">
+                                  <g id="icons" transform="translate(56.000000, 160.000000)">
+                                      <path d="M254.55945,610 L254.55,614 L252.45,614 L252.45,610 L246.63405,602 L260.367,602 L254.55945,610 Z M252.45,618 L254.55,618 L254.55,616 L252.45,616 L252.45,618 Z M243,600 L250.35,610.857 L250.35,620 L256.65,620 L256.65,610.857 L264,600 L243,600 Z" id="filter-[#1384]"></path>
+                                  </g>
+                              </g>
+                          </g>
+                      </svg>
+                    <span class="font-medium text-[#b3b3b3] text-[14.5px]">Genre</span>
+                  </div>
+                </button>
+                <button class="flex items-center w-[315px] h-[55px] -mx-5 gap-3 cursor-pointer rounded-l rounded-full transition-colors hover:bg-[#65350F]">
+                  <div class="flex items-center gap-3 ml-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28px" height="28px" viewBox="0 0 512 512" version="1.1">
+                        <title>new-indicator</title>
+                        <g id="Page-1" stroke="#b3b3b3" stroke-width="1" fill="#b3b3b3" fill-rule="evenodd">
+                            <g id="scheduler" fill="#b3b3b3" transform="translate(85.333333, 85.333333)">
+                                <path d="M170.666667,1.42108547e-14 C264.923264,-3.10380131e-15 341.333333,76.4100694 341.333333,170.666667 C341.333333,264.923264 264.923264,341.333333 170.666667,341.333333 C76.4100694,341.333333 2.57539587e-14,264.923264 1.42108547e-14,170.666667 C2.6677507e-15,76.4100694 76.4100694,3.15255107e-14 170.666667,1.42108547e-14 Z M170.666667,42.6666667 C99.9742187,42.6666667 42.6666667,99.9742187 42.6666667,170.666667 C42.6666667,241.359115 99.9742187,298.666667 170.666667,298.666667 C241.359115,298.666667 298.666667,241.359115 298.666667,170.666667 C298.666667,99.9742187 241.359115,42.6666667 170.666667,42.6666667 Z M192,85.3333333 L191.999333,149.333333 L256,149.333333 L256,192 L191.999333,191.999333 L192,256 L149.333333,256 L149.333333,191.999333 L85.3333333,192 L85.3333333,149.333333 L149.333333,149.333333 L149.333333,85.3333333 L192,85.3333333 Z" id="Combined-Shape"></path>
+                            </g>
+                        </g>
+                    </svg>
+                    <span class="font-medium text-[#b3b3b3] text-[14.5px]">Recently Added</span>
+                  </div>
+                </button>
+                <button class="flex items-center w-[315px] h-[55px] -mx-5 gap-3 cursor-pointer rounded-l rounded-full transition-colors hover:bg-[#65350F]">
+                  <div class="flex items-center gap-3 ml-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26px" height="26px" viewBox="0 0 24 24" version="1.1">
+                        <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                        <title>ic_fluent_recommended_24_regular</title>
+                        <desc>Created with Sketch.</desc>
+                        <g id="🔍-Product-Icons" stroke="#b3b3b3" stroke-width="1" fill="#b3b3b3" fill-rule="evenodd">
+                            <g id="ic_fluent_recommended_24_regular" fill="#b3b3b3" fill-rule="nonzero">
+                                <path d="M12,2 C16.418278,2 20,5.581722 20,10 C20,12.5480905 18.8087155,14.8179415 16.9527141,16.2829857 L17.0016031,16.2440856 L17.0007001,22.2453233 C17.0007001,22.7945586 16.4297842,23.157512 15.9324488,22.9244522 L12.0005291,21.0818879 L8.07069102,22.9243915 C7.5733438,23.1575726 7.00231009,22.7946207 7.00231009,22.2453233 L7.00069412,16.2459273 C5.1725143,14.7820178 4,12.5279366 4,10 C4,5.581722 7.581722,2 12,2 Z M15.5012202,17.1951723 L15.5414683,17.1754104 C14.4738996,17.7033228 13.2715961,18 12,18 C10.8745896,18 9.80345551,17.7676152 8.83196505,17.3482129 L8.50180347,17.1966457 L8.50231009,21.065345 L11.6820691,19.5745158 C11.8837425,19.4799613 12.1170099,19.479939 12.3187014,19.5744551 L15.5007001,21.0655937 L15.5012202,17.1951723 Z M12,3.5 C8.41014913,3.5 5.5,6.41014913 5.5,10 C5.5,13.5898509 8.41014913,16.5 12,16.5 C15.5898509,16.5 18.5,13.5898509 18.5,10 C18.5,6.41014913 15.5898509,3.5 12,3.5 Z M12.2287851,6.64234387 L13.1413078,8.49499737 L15.185271,8.79035658 C15.3945922,8.82060416 15.4782541,9.07783021 15.326776,9.22542655 L13.8484251,10.6658938 L14.1974269,12.7012993 C14.2331646,12.9097242 14.0143068,13.0685941 13.8272087,12.9700424 L12,12.0075816 L10.1727912,12.9700424 C9.98560603,13.06864 9.76668059,12.9095814 9.80260908,12.7010893 L10.1533251,10.6658938 L8.67333197,9.22553178 C8.52171667,9.07797642 8.60533875,8.82061413 8.81472896,8.79035658 L10.8586922,8.49499737 L11.7712148,6.64234387 C11.8646966,6.45255204 12.1353033,6.45255204 12.2287851,6.64234387 Z" id="🎨-Color"></path>
+                            </g>
+                        </g>
+                    </svg>
+                    <span class="font-medium text-[#b3b3b3] text-[14.5px]">Recommended</span>
+                  </div>
+                </button>
+            </div>
+            <!-- Division Line -->
+            <hr class="border-[#b3b3b3] my-7 opacity-30"/>
+
+            <!-- Resume List -->
+            <div class="w-full flex flex-col gap-3">
+                <div class="w-full flex items-center justify-between">
+                     <button class="flex items-center justify-between w-[315px] h-[55px] -mx-5 gap-3 cursor-pointer rounded-l rounded-full transition-colors hover:bg-[#65350F]">
+                      <div class="flex items-center gap-3 ml-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#b3b3b3" width="26px" height="26px" viewBox="0 0 32 32" id="Outlined">
+                          <title/>
+                          <g id="Fill">
+                            <path d="M22,2H10A3,3,0,0,0,7,5V30.3l7.73-3.61a3,3,0,0,1,2.54,0L25,30.3V5A3,3,0,0,0,22,2Zm1,25.16-4.89-2.28a5,5,0,0,0-4.22,0L9,27.16V8H23ZM23,6H9V5a1,1,0,0,1,1-1H22a1,1,0,0,1,1,1Z"/>
+                            <path d="M15,19.58A2,2,0,0,0,16.41,19l4.3-4.29-1.42-1.42L15,17.59l-2.29-2.3-1.42,1.42L13.59,19A2,2,0,0,0,15,19.58Z"/>
+                          </g>
+                        </svg>
+                        <span class="font-medium text-[#b3b3b3] text-[14.5px]">Resume Playlist</span>
+                      </div>
+                      <svg class="cursor-pointer mr-3" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 8V16M8 12H16M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#b3b3b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </button>
+                </div>
+                <div class="w-full flex flex-col items-center justify-between gap-3 ml-4">
+                  <button class="flex items-center justify-between w-[270px] h-[60px] gap-3 px-2 py-2 cursor-pointer rounded rounded-2 transition-colors hover:bg-[#65350F]">
+                    <div class="flex items-center justify-between gap-3">
+                        <img src="assets/SippiCup_logo.png" alt="Album cover" class="rounded-md w-[50px] h-[50px]" />
+                        <div class="flex flex-col justify-center items-start ">
+                            <span class="font-medium text-[#fff] text-[15px]">Podcast Title</span>
+                            <span class="font-medium text-[#b3b3b3] text-[13px]">Season 1</span>
+                            <span class="font-medium text-[#b3b3b3] text-[11px]">Episode 4</span>
+                        </div>
+                        <svg class="cursor-pointer ml-12" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 12H16M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#b3b3b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                  </button>
+                  <button class="flex items-center justify-between w-[270px] h-[60px] gap-3 px-2 py-2 cursor-pointer rounded rounded-2 transition-colors hover:bg-[#65350F]">
+                    <div class="flex items-center justify-between gap-3">
+                        <img src="assets/SippiCup_logo.png" alt="Album cover" class="rounded-md w-[50px] h-[50px]" />
+                        <div class="flex flex-col justify-center items-start ">
+                            <span class="font-medium text-[#fff] text-[15px]">Podcast Title</span>
+                            <span class="font-medium text-[#b3b3b3] text-[13px]">Season 5</span>
+                            <span class="font-medium text-[#b3b3b3] text-[11px]">Episode 9</span>
+                        </div>
+                        <svg class="cursor-pointer ml-12" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 12H16M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#b3b3b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                  </button>
+                </div>
+            </div>
+            <!-- Division line -->
+            <hr class="border-[#b3b3b3] my-7 opacity-30"/>
+
+            <!-- Contol Panel -->
+            <div class="w-full flex flex-col gap-3 px-3">
+                <!-- Adding the Show/hide sidebar button -->
+                <!-- Hide the Button -->
+                <button id="hideSidebar" class="flex justify-center items-center font-plus-jakarta-sans py-3 mx-auto w-[250px] h-[50px] rounded-full bg-[#65350F] dark:bg-[#65350F] text-[#635FC7] dark:text-white font-bold text-base transition-colors hover:bg-[#9D610E]">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#b3b3b3" version="1.1" id="Capa_1" width="22px" height="22px" viewBox="0 0 94.666 94.666" xml:space="preserve">
+                      <g>
+                        <path d="M76.923,35.406h-3.128v-8.945C73.795,11.871,61.924,0,47.333,0S20.871,11.871,20.871,26.461v8.945h-3.128   c-1.104,0-2,0.896-2,2v55.26c0,1.104,0.896,2,2,2h59.18c1.104,0,2-0.896,2-2v-55.26C78.923,36.302,78.028,35.406,76.923,35.406z    M47.333,11.181c8.426,0,15.281,6.854,15.281,15.28v8.945H32.052v-8.945C32.052,18.036,38.907,11.181,47.333,11.181z"/>
+                      </g>
+                    </svg>                    
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16">
+                      <g fill="#b3b3b3">
+                        <path d="m 1 2 h 14 v 2 h -14 z m 0 0"/>
+                        <path d="m 1 7 h 14 v 2 h -14 z m 0 0"/>
+                        <path d="m 1 12 h 14 v 2 h -14 z m 0 0"/>
+                      </g>
+                    </svg>
+                </button>
+
+                <!-- Adding a toggle -->
+                <div class="flex items-center justify-center cursor-pointer w-[251px] h-[48px] rounded-[6px] bg-[#65350F] dark:bg-[#D9D9D9] mt-4 mb-4 mx-auto transition-colors hover:bg-[#9D610E]">
+                    <svg class="ml-[70px]" xmlns="http://www.w3.org/2000/svg" width="19" height="19">
+                        <text x="2" y="15" font-size="14" fill="#828FA3">🌞</text>
+                    </svg>
+                    <label id="themeToggleDesktop" class="toggle relative inline-flex items-center w-[40px] h-[20px] shrink-0 cursor-pointer mx-auto">
+                        <input type="checkbox" id="themeToggle" class="absolute peer ml-2" />
+                        <div class="slider absolute top-0 left-0 right-0 bottom-0 rounded-full  bg-[#121212] transition-colors duration-300 ease-in-out peer-checked:bg-[#20212C]"></div>
+                        <div class="absolute h-[14px] w-[14px] left-[3px] bottom-[3px] bg-white rounded-full transition-all duration-300 ease-in-out peer-checked:translate-x-[20px]"></div>
+                    </label>
+                    <svg class="mr-[70px]" xmlns="http://www.w3.org/2000/svg" width="19" height="19">
+                        <text x="2" y="15" font-size="14" fill="#828FA3">🌚</text>
+                    </svg>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Content Area -->
+        <section class="flex flex-col h-fit w-fit flex-1 flex-shrink-0 bg-gradient-to-b from-[#1a1a1a] to-[#121212] p-5 lg:p-12">
+            <div class="flex items-center justify-start gap-3 mb-12">
+              <h4 class="font-medium text-[#fff] text-[15px]">Filter by:</h4>
+              <div class=" flex items-center relative">
+                  <select  id="genre-filter" class="w-full px-2 py-2 font-plus-jakarta-sans border text-[13px] font-medium border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-600 text-[#000112] [&>option:checked]:text-black">
+                      <option class="dark:bg-white text-[13px] font-medium text-gray-400 hover:bg-gray-900" value="low">All Genres</option>
+                      <option class="dark:bg-white text-[13px] font-medium text-gray-400 hover:bg-gray-900" value="medium">Option 2</option>
+                      <option class="dark:bg-white text-[13px] font-medium text-gray-400 hover:bg-gray-900" value="high">Option 3</option>
+                      <option class="dark:bg-white text-[13px] font-medium text-gray-400 hover:bg-gray-900" value="low">Option 4</option>
+                      <option class="dark:bg-white text-[13px] font-medium text-gray-400 hover:bg-gray-900" value="medium">Option 5</option>
+                      <option class="dark:bg-white text-[13px] font-medium text-gray-400 hover:bg-gray-900" value="high">Option 6</option>
+                  </select>
+              </div>
+              <div class=" flex items-center relative">
+                  <select id="updated-filter" class="w-full px-2 py-2 font-plus-jakarta-sans border text-[13px] font-medium border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-600 text-[#000112] [&>option:checked]:text-black">
+                      <option class="dark:bg-white bg-[#b3b3b3] text-[13px] font-medium text-gray-400 hover:bg-gray-900" value="low">Recently updated</option>
+                      <option class="fark:bg-white text-[13px] font-medium text-gray-400 hover:bg-gray-900" value="medium">Option 2</option>
+                      <option class="dark:bg-white text-[13px] font-medium text-gray-400 hover:bg-gray-900" value="high">Option 3</option>
+                      <option class="dark:bg-white text-[13px] font-medium text-gray-400 hover:bg-gray-900" value="low">Option 4</option>
+                      <option class="dark:bg-white text-[13px] font-medium text-gray-400 hover:bg-gray-900" value="medium">Option 5</option>
+                      <option class="dark:bg-white text-[13px] font-medium text-gray-400 hover:bg-gray-900" value="high">Option 6</option>
+                  </select>
+              </div>
+            </div>
+            <div class="flex flex-col mb-4">
+              <h1 class="text-2xl font-bold text-white mb-6">Playlist by Genre</h1>
+              <div class="flex items-center mb-6">
+                <button id="scroll-left" class="p-1 lg:p-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24">
+                        <g>
+                            <path fill="#b3b3b3" d="M0 0h24v24H0z"/>
+                            <path d="M10.828 12l4.95 4.95-1.414 1.414L8 12l6.364-6.364 1.414 1.414z"/>
+                        </g>
+                    </svg>
+                </button>
+                <div id="podcasts-container" class="flex items-center gap-6 w-[290px] md:w-[500px] lg:w-[900px] flex flex-1 flex-shrink-0 h-[370px] px-1 py-2 overflow-y-auto">
+                  <!-- Music Cards -->
+                  <div class="min-w-[280px] max-h-[350px] flex flex-col hover:bg-[#65350F] p-5 gap-1 rounded-lg bg-[#282828] transition-colors cursor-pointer">
+                      <img src="assets/SippiCup_logo.png" alt="Album" class="rounded-md mb-4 w-[240px] h-[190px]">
+                      <div class="flex items-center justify-between">
+                        <h3 class="font-semibold text-white truncate">Song Title</h3>
+                        <div class="flex items-center gap-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 -2.5 21 21" version="1.1">
+                            <title>love [#1489]</title>
+                            <desc>Created with Sketch.</desc>
+                            <defs></defs>
+                            <g id="Page-1" stroke="none" stroke-width="1" fill="#b3b3b3" fill-rule="evenodd">
+                                <g id="Dribbble-Light-Preview" transform="translate(-99.000000, -362.000000)" fill="#b3b3b3">
+                                    <g id="icons" transform="translate(56.000000, 160.000000)">
+                                        <path d="M55.5929644,215.348992 C55.0175653,215.814817 54.2783665,216.071721 53.5108177,216.071721 C52.7443189,216.071721 52.0030201,215.815817 51.4045211,215.334997 C47.6308271,212.307129 45.2284309,210.70073 45.1034811,207.405962 C44.9722313,203.919267 48.9832249,202.644743 51.442321,205.509672 C51.9400202,206.088455 52.687619,206.420331 53.4940177,206.420331 C54.3077664,206.420331 55.0606152,206.084457 55.5593644,205.498676 C57.9649106,202.67973 62.083004,203.880281 61.8950543,207.507924 C61.7270546,210.734717 59.2322586,212.401094 55.5929644,215.348992 M53.9066671,204.31012 C53.8037672,204.431075 53.6483675,204.492052 53.4940177,204.492052 C53.342818,204.492052 53.1926682,204.433074 53.0918684,204.316118 C49.3717243,199.982739 42.8029348,202.140932 43.0045345,207.472937 C43.1651842,211.71635 46.3235792,213.819564 50.0426732,216.803448 C51.0370217,217.601149 52.2739197,218 53.5108177,218 C54.7508657,218 55.9898637,217.59915 56.9821122,216.795451 C60.6602563,213.815565 63.7787513,211.726346 63.991901,207.59889 C64.2754005,202.147929 57.6173611,199.958748 53.9066671,204.31012" id="love-[#1489]"></path>
+                                    </g>
+                                </g>
+                            </g>
+                          </svg>
+                          <span class="font-medium text-white text-[13px]">75</span>  
+                        </div>
+                      </div>
+                      <div class="flex items-center justify-start gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#b3b3b3" width="12px" height="12px" viewBox="0 0 100.353 100.353" id="Layer_1" version="1.1" xml:space="preserve">
+                            <g>
+                              <path d="M32.286,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,43.113,33.115,42.441,32.286,42.441z M30.786,52.203h-6.762v-6.762h6.762V52.203z"/>
+                              <path d="M55.054,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,43.113,55.882,42.441,55.054,42.441z M53.554,52.203h-6.762v-6.762h6.762V52.203z"/>
+                              <path d="M77.12,42.441h-9.762c-0.828,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,43.113,77.948,42.441,77.12,42.441z M75.62,52.203h-6.762v-6.762h6.762V52.203z"/>
+                              <path d="M32.286,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,65.349,33.115,64.677,32.286,64.677z M30.786,74.439h-6.762v-6.762h6.762V74.439z"/>
+                              <path d="M55.054,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,65.349,55.882,64.677,55.054,64.677z M53.554,74.439h-6.762v-6.762h6.762V74.439z"/>
+                              <path d="M77.12,64.677h-9.762c-0.828,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,65.349,77.948,64.677,77.12,64.677z M75.62,74.439h-6.762v-6.762h6.762V74.439z"/>
+                              <path d="M89,13.394h-9.907c-0.013,0-0.024,0.003-0.037,0.004V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994   H56.041V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994H33.025V11.4c0-3.268-2.658-5.926-5.926-5.926   s-5.926,2.659-5.926,5.926v1.995c-0.005,0-0.01-0.001-0.015-0.001h-9.905c-0.829,0-1.5,0.671-1.5,1.5V92.64   c0,0.828,0.671,1.5,1.5,1.5H89c0.828,0,1.5-0.672,1.5-1.5V14.894C90.5,14.065,89.828,13.394,89,13.394z M70.204,11.4   c0-1.614,1.312-2.926,2.926-2.926s2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926s-2.926-1.312-2.926-2.926V11.4z    M50.115,8.474c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926c-1.614,0-2.926-1.312-2.926-2.926v-4.643   c0.004-0.047,0.014-0.092,0.014-0.141s-0.01-0.094-0.014-0.141V11.4C47.189,9.786,48.501,8.474,50.115,8.474z M24.173,11.4   c0-1.614,1.312-2.926,2.926-2.926c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926   c-1.614,0-2.926-1.312-2.926-2.926V11.4z M87.5,91.14H12.753V16.394h8.405c0.005,0,0.01-0.001,0.015-0.001v3.285   c0,3.268,2.659,5.926,5.926,5.926s5.926-2.658,5.926-5.926v-3.283h11.164v3.283c0,3.268,2.659,5.926,5.926,5.926   s5.926-2.658,5.926-5.926v-3.283h11.163v3.283c0,3.268,2.658,5.926,5.926,5.926s5.926-2.658,5.926-5.926V16.39   c0.013,0,0.024,0.004,0.037,0.004H87.5V91.14z"/>
+                            </g>
+                          </svg>
+                          <span class="text-sm text-[#b3b3b3] truncate">Number of seasons</span>
+                      </div>
+                      <div class="flex flex-wrap items-start gap-1">
+                        <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Business</button>
+                        <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">News</button>
+                        <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Technology</button>
+                      </div>
+                      <p class="text-sm text-[#b3b3b3] truncate">Updated x days ago</p>
+                  </div>
+                  <div class="min-w-[280px] max-h-[350px] flex flex-col hover:bg-[#65350F] p-5 gap-1 rounded-lg bg-[#282828] transition-colors cursor-pointer">
+                      <img src="assets/SippiCup_logo.png" alt="Album" class="rounded-md mb-4 w-[240px] h-[190px]">
+                      <div class="flex items-center justify-between">
+                        <h3 class="font-semibold text-white truncate">Song Title</h3>
+                        <div class="flex items-center gap-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 -2.5 21 21" version="1.1">
+                            <title>love [#1489]</title>
+                            <desc>Created with Sketch.</desc>
+                            <defs></defs>
+                            <g id="Page-1" stroke="none" stroke-width="1" fill="#b3b3b3" fill-rule="evenodd">
+                                <g id="Dribbble-Light-Preview" transform="translate(-99.000000, -362.000000)" fill="#b3b3b3">
+                                    <g id="icons" transform="translate(56.000000, 160.000000)">
+                                        <path d="M55.5929644,215.348992 C55.0175653,215.814817 54.2783665,216.071721 53.5108177,216.071721 C52.7443189,216.071721 52.0030201,215.815817 51.4045211,215.334997 C47.6308271,212.307129 45.2284309,210.70073 45.1034811,207.405962 C44.9722313,203.919267 48.9832249,202.644743 51.442321,205.509672 C51.9400202,206.088455 52.687619,206.420331 53.4940177,206.420331 C54.3077664,206.420331 55.0606152,206.084457 55.5593644,205.498676 C57.9649106,202.67973 62.083004,203.880281 61.8950543,207.507924 C61.7270546,210.734717 59.2322586,212.401094 55.5929644,215.348992 M53.9066671,204.31012 C53.8037672,204.431075 53.6483675,204.492052 53.4940177,204.492052 C53.342818,204.492052 53.1926682,204.433074 53.0918684,204.316118 C49.3717243,199.982739 42.8029348,202.140932 43.0045345,207.472937 C43.1651842,211.71635 46.3235792,213.819564 50.0426732,216.803448 C51.0370217,217.601149 52.2739197,218 53.5108177,218 C54.7508657,218 55.9898637,217.59915 56.9821122,216.795451 C60.6602563,213.815565 63.7787513,211.726346 63.991901,207.59889 C64.2754005,202.147929 57.6173611,199.958748 53.9066671,204.31012" id="love-[#1489]"></path>
+                                    </g>
+                                </g>
+                            </g>
+                          </svg>
+                          <span class="font-medium text-white text-[13px]">75</span>  
+                        </div>
+                      </div>
+                      <div class="flex items-center justify-start gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#b3b3b3" width="12px" height="12px" viewBox="0 0 100.353 100.353" id="Layer_1" version="1.1" xml:space="preserve">
+                            <g>
+                              <path d="M32.286,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,43.113,33.115,42.441,32.286,42.441z M30.786,52.203h-6.762v-6.762h6.762V52.203z"/>
+                              <path d="M55.054,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,43.113,55.882,42.441,55.054,42.441z M53.554,52.203h-6.762v-6.762h6.762V52.203z"/>
+                              <path d="M77.12,42.441h-9.762c-0.828,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,43.113,77.948,42.441,77.12,42.441z M75.62,52.203h-6.762v-6.762h6.762V52.203z"/>
+                              <path d="M32.286,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,65.349,33.115,64.677,32.286,64.677z M30.786,74.439h-6.762v-6.762h6.762V74.439z"/>
+                              <path d="M55.054,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,65.349,55.882,64.677,55.054,64.677z M53.554,74.439h-6.762v-6.762h6.762V74.439z"/>
+                              <path d="M77.12,64.677h-9.762c-0.828,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,65.349,77.948,64.677,77.12,64.677z M75.62,74.439h-6.762v-6.762h6.762V74.439z"/>
+                              <path d="M89,13.394h-9.907c-0.013,0-0.024,0.003-0.037,0.004V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994   H56.041V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994H33.025V11.4c0-3.268-2.658-5.926-5.926-5.926   s-5.926,2.659-5.926,5.926v1.995c-0.005,0-0.01-0.001-0.015-0.001h-9.905c-0.829,0-1.5,0.671-1.5,1.5V92.64   c0,0.828,0.671,1.5,1.5,1.5H89c0.828,0,1.5-0.672,1.5-1.5V14.894C90.5,14.065,89.828,13.394,89,13.394z M70.204,11.4   c0-1.614,1.312-2.926,2.926-2.926s2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926s-2.926-1.312-2.926-2.926V11.4z    M50.115,8.474c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926c-1.614,0-2.926-1.312-2.926-2.926v-4.643   c0.004-0.047,0.014-0.092,0.014-0.141s-0.01-0.094-0.014-0.141V11.4C47.189,9.786,48.501,8.474,50.115,8.474z M24.173,11.4   c0-1.614,1.312-2.926,2.926-2.926c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926   c-1.614,0-2.926-1.312-2.926-2.926V11.4z M87.5,91.14H12.753V16.394h8.405c0.005,0,0.01-0.001,0.015-0.001v3.285   c0,3.268,2.659,5.926,5.926,5.926s5.926-2.658,5.926-5.926v-3.283h11.164v3.283c0,3.268,2.659,5.926,5.926,5.926   s5.926-2.658,5.926-5.926v-3.283h11.163v3.283c0,3.268,2.658,5.926,5.926,5.926s5.926-2.658,5.926-5.926V16.39   c0.013,0,0.024,0.004,0.037,0.004H87.5V91.14z"/>
+                            </g>
+                          </svg>
+                          <span class="text-sm text-[#b3b3b3] truncate">Number of seasons</span>
+                      </div>
+                      <div class="flex flex-wrap items-start gap-1">
+                        <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Business</button>
+                        <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">News</button>
+                        <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Technology</button>
+                      </div>
+                      <p class="text-sm text-[#b3b3b3] truncate">Updated x days ago</p>
+                  </div>
+                  <div class="min-w-[280px] max-h-[350px] flex flex-col hover:bg-[#65350F] p-5 gap-1 rounded-lg bg-[#282828] transition-colors cursor-pointer">
+                      <img src="assets/SippiCup_logo.png" alt="Album" class="rounded-md mb-4 w-[240px] h-[190px]">
+                      <div class="flex items-center justify-between">
+                        <h3 class="font-semibold text-white truncate">Song Title</h3>
+                        <div class="flex items-center gap-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 -2.5 21 21" version="1.1">
+                            <title>love [#1489]</title>
+                            <desc>Created with Sketch.</desc>
+                            <defs></defs>
+                            <g id="Page-1" stroke="none" stroke-width="1" fill="#b3b3b3" fill-rule="evenodd">
+                                <g id="Dribbble-Light-Preview" transform="translate(-99.000000, -362.000000)" fill="#b3b3b3">
+                                    <g id="icons" transform="translate(56.000000, 160.000000)">
+                                        <path d="M55.5929644,215.348992 C55.0175653,215.814817 54.2783665,216.071721 53.5108177,216.071721 C52.7443189,216.071721 52.0030201,215.815817 51.4045211,215.334997 C47.6308271,212.307129 45.2284309,210.70073 45.1034811,207.405962 C44.9722313,203.919267 48.9832249,202.644743 51.442321,205.509672 C51.9400202,206.088455 52.687619,206.420331 53.4940177,206.420331 C54.3077664,206.420331 55.0606152,206.084457 55.5593644,205.498676 C57.9649106,202.67973 62.083004,203.880281 61.8950543,207.507924 C61.7270546,210.734717 59.2322586,212.401094 55.5929644,215.348992 M53.9066671,204.31012 C53.8037672,204.431075 53.6483675,204.492052 53.4940177,204.492052 C53.342818,204.492052 53.1926682,204.433074 53.0918684,204.316118 C49.3717243,199.982739 42.8029348,202.140932 43.0045345,207.472937 C43.1651842,211.71635 46.3235792,213.819564 50.0426732,216.803448 C51.0370217,217.601149 52.2739197,218 53.5108177,218 C54.7508657,218 55.9898637,217.59915 56.9821122,216.795451 C60.6602563,213.815565 63.7787513,211.726346 63.991901,207.59889 C64.2754005,202.147929 57.6173611,199.958748 53.9066671,204.31012" id="love-[#1489]"></path>
+                                    </g>
+                                </g>
+                            </g>
+                          </svg>
+                          <span class="font-medium text-white text-[13px]">75</span>  
+                        </div>
+                      </div>
+                      <div class="flex items-center justify-start gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#b3b3b3" width="12px" height="12px" viewBox="0 0 100.353 100.353" id="Layer_1" version="1.1" xml:space="preserve">
+                            <g>
+                              <path d="M32.286,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,43.113,33.115,42.441,32.286,42.441z M30.786,52.203h-6.762v-6.762h6.762V52.203z"/>
+                              <path d="M55.054,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,43.113,55.882,42.441,55.054,42.441z M53.554,52.203h-6.762v-6.762h6.762V52.203z"/>
+                              <path d="M77.12,42.441h-9.762c-0.828,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,43.113,77.948,42.441,77.12,42.441z M75.62,52.203h-6.762v-6.762h6.762V52.203z"/>
+                              <path d="M32.286,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,65.349,33.115,64.677,32.286,64.677z M30.786,74.439h-6.762v-6.762h6.762V74.439z"/>
+                              <path d="M55.054,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,65.349,55.882,64.677,55.054,64.677z M53.554,74.439h-6.762v-6.762h6.762V74.439z"/>
+                              <path d="M77.12,64.677h-9.762c-0.828,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,65.349,77.948,64.677,77.12,64.677z M75.62,74.439h-6.762v-6.762h6.762V74.439z"/>
+                              <path d="M89,13.394h-9.907c-0.013,0-0.024,0.003-0.037,0.004V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994   H56.041V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994H33.025V11.4c0-3.268-2.658-5.926-5.926-5.926   s-5.926,2.659-5.926,5.926v1.995c-0.005,0-0.01-0.001-0.015-0.001h-9.905c-0.829,0-1.5,0.671-1.5,1.5V92.64   c0,0.828,0.671,1.5,1.5,1.5H89c0.828,0,1.5-0.672,1.5-1.5V14.894C90.5,14.065,89.828,13.394,89,13.394z M70.204,11.4   c0-1.614,1.312-2.926,2.926-2.926s2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926s-2.926-1.312-2.926-2.926V11.4z    M50.115,8.474c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926c-1.614,0-2.926-1.312-2.926-2.926v-4.643   c0.004-0.047,0.014-0.092,0.014-0.141s-0.01-0.094-0.014-0.141V11.4C47.189,9.786,48.501,8.474,50.115,8.474z M24.173,11.4   c0-1.614,1.312-2.926,2.926-2.926c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926   c-1.614,0-2.926-1.312-2.926-2.926V11.4z M87.5,91.14H12.753V16.394h8.405c0.005,0,0.01-0.001,0.015-0.001v3.285   c0,3.268,2.659,5.926,5.926,5.926s5.926-2.658,5.926-5.926v-3.283h11.164v3.283c0,3.268,2.659,5.926,5.926,5.926   s5.926-2.658,5.926-5.926v-3.283h11.163v3.283c0,3.268,2.658,5.926,5.926,5.926s5.926-2.658,5.926-5.926V16.39   c0.013,0,0.024,0.004,0.037,0.004H87.5V91.14z"/>
+                            </g>
+                          </svg>
+                          <span class="text-sm text-[#b3b3b3] truncate">Number of seasons</span>
+                      </div>
+                      <div class="flex flex-wrap items-start gap-1">
+                        <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Business</button>
+                        <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">News</button>
+                        <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Technology</button>
+                      </div>
+                      <p class="text-sm text-[#b3b3b3] truncate">Updated x days ago</p>
+                  </div>
+                  <div class="min-w-[280px] max-h-[350px] flex flex-col hover:bg-[#65350F] p-5 gap-1 rounded-lg bg-[#282828] transition-colors cursor-pointer">
+                      <img src="assets/SippiCup_logo.png" alt="Album" class="rounded-md mb-4 w-[240px] h-[190px]">
+                      <div class="flex items-center justify-between">
+                        <h3 class="font-semibold text-white truncate">Song Title</h3>
+                        <div class="flex items-center gap-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 -2.5 21 21" version="1.1">
+                            <title>love [#1489]</title>
+                            <desc>Created with Sketch.</desc>
+                            <defs></defs>
+                            <g id="Page-1" stroke="none" stroke-width="1" fill="#b3b3b3" fill-rule="evenodd">
+                                <g id="Dribbble-Light-Preview" transform="translate(-99.000000, -362.000000)" fill="#b3b3b3">
+                                    <g id="icons" transform="translate(56.000000, 160.000000)">
+                                        <path d="M55.5929644,215.348992 C55.0175653,215.814817 54.2783665,216.071721 53.5108177,216.071721 C52.7443189,216.071721 52.0030201,215.815817 51.4045211,215.334997 C47.6308271,212.307129 45.2284309,210.70073 45.1034811,207.405962 C44.9722313,203.919267 48.9832249,202.644743 51.442321,205.509672 C51.9400202,206.088455 52.687619,206.420331 53.4940177,206.420331 C54.3077664,206.420331 55.0606152,206.084457 55.5593644,205.498676 C57.9649106,202.67973 62.083004,203.880281 61.8950543,207.507924 C61.7270546,210.734717 59.2322586,212.401094 55.5929644,215.348992 M53.9066671,204.31012 C53.8037672,204.431075 53.6483675,204.492052 53.4940177,204.492052 C53.342818,204.492052 53.1926682,204.433074 53.0918684,204.316118 C49.3717243,199.982739 42.8029348,202.140932 43.0045345,207.472937 C43.1651842,211.71635 46.3235792,213.819564 50.0426732,216.803448 C51.0370217,217.601149 52.2739197,218 53.5108177,218 C54.7508657,218 55.9898637,217.59915 56.9821122,216.795451 C60.6602563,213.815565 63.7787513,211.726346 63.991901,207.59889 C64.2754005,202.147929 57.6173611,199.958748 53.9066671,204.31012" id="love-[#1489]"></path>
+                                    </g>
+                                </g>
+                            </g>
+                          </svg>
+                          <span class="font-medium text-white text-[13px]">75</span>  
+                        </div>
+                      </div>
+                      <div class="flex items-center justify-start gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#b3b3b3" width="12px" height="12px" viewBox="0 0 100.353 100.353" id="Layer_1" version="1.1" xml:space="preserve">
+                            <g>
+                              <path d="M32.286,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,43.113,33.115,42.441,32.286,42.441z M30.786,52.203h-6.762v-6.762h6.762V52.203z"/>
+                              <path d="M55.054,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,43.113,55.882,42.441,55.054,42.441z M53.554,52.203h-6.762v-6.762h6.762V52.203z"/>
+                              <path d="M77.12,42.441h-9.762c-0.828,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,43.113,77.948,42.441,77.12,42.441z M75.62,52.203h-6.762v-6.762h6.762V52.203z"/>
+                              <path d="M32.286,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,65.349,33.115,64.677,32.286,64.677z M30.786,74.439h-6.762v-6.762h6.762V74.439z"/>
+                              <path d="M55.054,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,65.349,55.882,64.677,55.054,64.677z M53.554,74.439h-6.762v-6.762h6.762V74.439z"/>
+                              <path d="M77.12,64.677h-9.762c-0.828,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,65.349,77.948,64.677,77.12,64.677z M75.62,74.439h-6.762v-6.762h6.762V74.439z"/>
+                              <path d="M89,13.394h-9.907c-0.013,0-0.024,0.003-0.037,0.004V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994   H56.041V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994H33.025V11.4c0-3.268-2.658-5.926-5.926-5.926   s-5.926,2.659-5.926,5.926v1.995c-0.005,0-0.01-0.001-0.015-0.001h-9.905c-0.829,0-1.5,0.671-1.5,1.5V92.64   c0,0.828,0.671,1.5,1.5,1.5H89c0.828,0,1.5-0.672,1.5-1.5V14.894C90.5,14.065,89.828,13.394,89,13.394z M70.204,11.4   c0-1.614,1.312-2.926,2.926-2.926s2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926s-2.926-1.312-2.926-2.926V11.4z    M50.115,8.474c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926c-1.614,0-2.926-1.312-2.926-2.926v-4.643   c0.004-0.047,0.014-0.092,0.014-0.141s-0.01-0.094-0.014-0.141V11.4C47.189,9.786,48.501,8.474,50.115,8.474z M24.173,11.4   c0-1.614,1.312-2.926,2.926-2.926c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926   c-1.614,0-2.926-1.312-2.926-2.926V11.4z M87.5,91.14H12.753V16.394h8.405c0.005,0,0.01-0.001,0.015-0.001v3.285   c0,3.268,2.659,5.926,5.926,5.926s5.926-2.658,5.926-5.926v-3.283h11.164v3.283c0,3.268,2.659,5.926,5.926,5.926   s5.926-2.658,5.926-5.926v-3.283h11.163v3.283c0,3.268,2.658,5.926,5.926,5.926s5.926-2.658,5.926-5.926V16.39   c0.013,0,0.024,0.004,0.037,0.004H87.5V91.14z"/>
+                            </g>
+                          </svg>
+                          <span class="text-sm text-[#b3b3b3] truncate">Number of seasons</span>
+                      </div>
+                      <div class="flex flex-wrap items-start gap-1">
+                        <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Business</button>
+                        <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">News</button>
+                        <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Technology</button>
+                      </div>
+                      <p class="text-sm text-[#b3b3b3] truncate">Updated x days ago</p>
+                  </div>
+
+                  <!-- empty results from filter -->
+                  <div id="no-results" class="hidden text-center py-12">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <h3 class="text-xl font-semibold text-black dark:text-[#fff]">No podcasts found</h3>
+                    <p class="text-[#b3b3b3] mt-2">Try selecting a different genre</p>
+                  </div>
+
+                </div>
+                <button id="scroll-right" class="p-1 lg:p-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24">
+                        <g>
+                            <path fill="#b3b3b3" d="M0 0h24v24H0z"/>
+                            <path d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"/>
+                        </g>
+                    </svg>
+                </button>
+              </div>
+
+              <!-- Another Container to render cards -->
+
+              <h1 class="text-2xl font-bold text-white mb-6">Playlist by Recently Updated</h1>
+              <div class="flex items-center mb-[100px]">
+                  <div id="podcastGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mx-auto px-1 py-2">
+                    <!-- Music Cards -->
+                    <div class="min-w-[280px] max-h-[350px] flex flex-col hover:bg-[#65350F] p-5 gap-1 rounded-lg bg-[#282828] transition-colors cursor-pointer">
+                        <img src="assets/SippiCup_logo.png" alt="Album" class="rounded-md mb-4 w-[240px] h-[190px]">
+                        <div class="flex items-center justify-between">
+                          <h3 class="font-semibold text-white truncate">Song Title</h3>
+                          <div class="flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 -2.5 21 21" version="1.1">
+                              <title>love [#1489]</title>
+                              <desc>Created with Sketch.</desc>
+                              <defs></defs>
+                              <g id="Page-1" stroke="none" stroke-width="1" fill="#b3b3b3" fill-rule="evenodd">
+                                  <g id="Dribbble-Light-Preview" transform="translate(-99.000000, -362.000000)" fill="#b3b3b3">
+                                      <g id="icons" transform="translate(56.000000, 160.000000)">
+                                          <path d="M55.5929644,215.348992 C55.0175653,215.814817 54.2783665,216.071721 53.5108177,216.071721 C52.7443189,216.071721 52.0030201,215.815817 51.4045211,215.334997 C47.6308271,212.307129 45.2284309,210.70073 45.1034811,207.405962 C44.9722313,203.919267 48.9832249,202.644743 51.442321,205.509672 C51.9400202,206.088455 52.687619,206.420331 53.4940177,206.420331 C54.3077664,206.420331 55.0606152,206.084457 55.5593644,205.498676 C57.9649106,202.67973 62.083004,203.880281 61.8950543,207.507924 C61.7270546,210.734717 59.2322586,212.401094 55.5929644,215.348992 M53.9066671,204.31012 C53.8037672,204.431075 53.6483675,204.492052 53.4940177,204.492052 C53.342818,204.492052 53.1926682,204.433074 53.0918684,204.316118 C49.3717243,199.982739 42.8029348,202.140932 43.0045345,207.472937 C43.1651842,211.71635 46.3235792,213.819564 50.0426732,216.803448 C51.0370217,217.601149 52.2739197,218 53.5108177,218 C54.7508657,218 55.9898637,217.59915 56.9821122,216.795451 C60.6602563,213.815565 63.7787513,211.726346 63.991901,207.59889 C64.2754005,202.147929 57.6173611,199.958748 53.9066671,204.31012" id="love-[#1489]"></path>
+                                      </g>
+                                  </g>
+                              </g>
+                            </svg>
+                            <span class="font-medium text-white text-[13px]">75</span>  
+                          </div>
+                        </div>
+                        <div class="flex items-center justify-start gap-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#b3b3b3" width="12px" height="12px" viewBox="0 0 100.353 100.353" id="Layer_1" version="1.1" xml:space="preserve">
+                              <g>
+                                <path d="M32.286,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,43.113,33.115,42.441,32.286,42.441z M30.786,52.203h-6.762v-6.762h6.762V52.203z"/>
+                                <path d="M55.054,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,43.113,55.882,42.441,55.054,42.441z M53.554,52.203h-6.762v-6.762h6.762V52.203z"/>
+                                <path d="M77.12,42.441h-9.762c-0.828,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,43.113,77.948,42.441,77.12,42.441z M75.62,52.203h-6.762v-6.762h6.762V52.203z"/>
+                                <path d="M32.286,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,65.349,33.115,64.677,32.286,64.677z M30.786,74.439h-6.762v-6.762h6.762V74.439z"/>
+                                <path d="M55.054,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,65.349,55.882,64.677,55.054,64.677z M53.554,74.439h-6.762v-6.762h6.762V74.439z"/>
+                                <path d="M77.12,64.677h-9.762c-0.828,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,65.349,77.948,64.677,77.12,64.677z M75.62,74.439h-6.762v-6.762h6.762V74.439z"/>
+                                <path d="M89,13.394h-9.907c-0.013,0-0.024,0.003-0.037,0.004V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994   H56.041V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994H33.025V11.4c0-3.268-2.658-5.926-5.926-5.926   s-5.926,2.659-5.926,5.926v1.995c-0.005,0-0.01-0.001-0.015-0.001h-9.905c-0.829,0-1.5,0.671-1.5,1.5V92.64   c0,0.828,0.671,1.5,1.5,1.5H89c0.828,0,1.5-0.672,1.5-1.5V14.894C90.5,14.065,89.828,13.394,89,13.394z M70.204,11.4   c0-1.614,1.312-2.926,2.926-2.926s2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926s-2.926-1.312-2.926-2.926V11.4z    M50.115,8.474c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926c-1.614,0-2.926-1.312-2.926-2.926v-4.643   c0.004-0.047,0.014-0.092,0.014-0.141s-0.01-0.094-0.014-0.141V11.4C47.189,9.786,48.501,8.474,50.115,8.474z M24.173,11.4   c0-1.614,1.312-2.926,2.926-2.926c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926   c-1.614,0-2.926-1.312-2.926-2.926V11.4z M87.5,91.14H12.753V16.394h8.405c0.005,0,0.01-0.001,0.015-0.001v3.285   c0,3.268,2.659,5.926,5.926,5.926s5.926-2.658,5.926-5.926v-3.283h11.164v3.283c0,3.268,2.659,5.926,5.926,5.926   s5.926-2.658,5.926-5.926v-3.283h11.163v3.283c0,3.268,2.658,5.926,5.926,5.926s5.926-2.658,5.926-5.926V16.39   c0.013,0,0.024,0.004,0.037,0.004H87.5V91.14z"/>
+                              </g>
+                            </svg>
+                            <span class="text-sm text-[#b3b3b3] truncate">Number of seasons</span>
+                        </div>
+                        <div class="flex flex-wrap items-start gap-1">
+                          <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Business</button>
+                          <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">News</button>
+                          <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Technology</button>
+                        </div>
+                        <p class="text-sm text-[#b3b3b3] truncate">Updated x days ago</p>
+                    </div>
+                    <div class="min-w-[280px] max-h-[350px] flex flex-col hover:bg-[#65350F] p-5 gap-1 rounded-lg bg-[#282828] transition-colors cursor-pointer">
+                        <img src="assets/SippiCup_logo.png" alt="Album" class="rounded-md mb-4 w-[240px] h-[190px]">
+                        <div class="flex items-center justify-between">
+                          <h3 class="font-semibold text-white truncate">Song Title</h3>
+                          <div class="flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 -2.5 21 21" version="1.1">
+                              <title>love [#1489]</title>
+                              <desc>Created with Sketch.</desc>
+                              <defs></defs>
+                              <g id="Page-1" stroke="none" stroke-width="1" fill="#b3b3b3" fill-rule="evenodd">
+                                  <g id="Dribbble-Light-Preview" transform="translate(-99.000000, -362.000000)" fill="#b3b3b3">
+                                      <g id="icons" transform="translate(56.000000, 160.000000)">
+                                          <path d="M55.5929644,215.348992 C55.0175653,215.814817 54.2783665,216.071721 53.5108177,216.071721 C52.7443189,216.071721 52.0030201,215.815817 51.4045211,215.334997 C47.6308271,212.307129 45.2284309,210.70073 45.1034811,207.405962 C44.9722313,203.919267 48.9832249,202.644743 51.442321,205.509672 C51.9400202,206.088455 52.687619,206.420331 53.4940177,206.420331 C54.3077664,206.420331 55.0606152,206.084457 55.5593644,205.498676 C57.9649106,202.67973 62.083004,203.880281 61.8950543,207.507924 C61.7270546,210.734717 59.2322586,212.401094 55.5929644,215.348992 M53.9066671,204.31012 C53.8037672,204.431075 53.6483675,204.492052 53.4940177,204.492052 C53.342818,204.492052 53.1926682,204.433074 53.0918684,204.316118 C49.3717243,199.982739 42.8029348,202.140932 43.0045345,207.472937 C43.1651842,211.71635 46.3235792,213.819564 50.0426732,216.803448 C51.0370217,217.601149 52.2739197,218 53.5108177,218 C54.7508657,218 55.9898637,217.59915 56.9821122,216.795451 C60.6602563,213.815565 63.7787513,211.726346 63.991901,207.59889 C64.2754005,202.147929 57.6173611,199.958748 53.9066671,204.31012" id="love-[#1489]"></path>
+                                      </g>
+                                  </g>
+                              </g>
+                            </svg>
+                            <span class="font-medium text-white text-[13px]">75</span>  
+                          </div>
+                        </div>
+                        <div class="flex items-center justify-start gap-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#b3b3b3" width="12px" height="12px" viewBox="0 0 100.353 100.353" id="Layer_1" version="1.1" xml:space="preserve">
+                              <g>
+                                <path d="M32.286,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,43.113,33.115,42.441,32.286,42.441z M30.786,52.203h-6.762v-6.762h6.762V52.203z"/>
+                                <path d="M55.054,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,43.113,55.882,42.441,55.054,42.441z M53.554,52.203h-6.762v-6.762h6.762V52.203z"/>
+                                <path d="M77.12,42.441h-9.762c-0.828,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,43.113,77.948,42.441,77.12,42.441z M75.62,52.203h-6.762v-6.762h6.762V52.203z"/>
+                                <path d="M32.286,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,65.349,33.115,64.677,32.286,64.677z M30.786,74.439h-6.762v-6.762h6.762V74.439z"/>
+                                <path d="M55.054,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,65.349,55.882,64.677,55.054,64.677z M53.554,74.439h-6.762v-6.762h6.762V74.439z"/>
+                                <path d="M77.12,64.677h-9.762c-0.828,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,65.349,77.948,64.677,77.12,64.677z M75.62,74.439h-6.762v-6.762h6.762V74.439z"/>
+                                <path d="M89,13.394h-9.907c-0.013,0-0.024,0.003-0.037,0.004V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994   H56.041V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994H33.025V11.4c0-3.268-2.658-5.926-5.926-5.926   s-5.926,2.659-5.926,5.926v1.995c-0.005,0-0.01-0.001-0.015-0.001h-9.905c-0.829,0-1.5,0.671-1.5,1.5V92.64   c0,0.828,0.671,1.5,1.5,1.5H89c0.828,0,1.5-0.672,1.5-1.5V14.894C90.5,14.065,89.828,13.394,89,13.394z M70.204,11.4   c0-1.614,1.312-2.926,2.926-2.926s2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926s-2.926-1.312-2.926-2.926V11.4z    M50.115,8.474c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926c-1.614,0-2.926-1.312-2.926-2.926v-4.643   c0.004-0.047,0.014-0.092,0.014-0.141s-0.01-0.094-0.014-0.141V11.4C47.189,9.786,48.501,8.474,50.115,8.474z M24.173,11.4   c0-1.614,1.312-2.926,2.926-2.926c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926   c-1.614,0-2.926-1.312-2.926-2.926V11.4z M87.5,91.14H12.753V16.394h8.405c0.005,0,0.01-0.001,0.015-0.001v3.285   c0,3.268,2.659,5.926,5.926,5.926s5.926-2.658,5.926-5.926v-3.283h11.164v3.283c0,3.268,2.659,5.926,5.926,5.926   s5.926-2.658,5.926-5.926v-3.283h11.163v3.283c0,3.268,2.658,5.926,5.926,5.926s5.926-2.658,5.926-5.926V16.39   c0.013,0,0.024,0.004,0.037,0.004H87.5V91.14z"/>
+                              </g>
+                            </svg>
+                            <span class="text-sm text-[#b3b3b3] truncate">Number of seasons</span>
+                        </div>
+                        <div class="flex flex-wrap items-start gap-1">
+                          <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Business</button>
+                          <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">News</button>
+                          <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Technology</button>
+                        </div>
+                        <p class="text-sm text-[#b3b3b3] truncate">Updated x days ago</p>
+                    </div>
+                    <div class="min-w-[280px] max-h-[350px] flex flex-col hover:bg-[#65350F] p-5 gap-1 rounded-lg bg-[#282828] transition-colors cursor-pointer">
+                        <img src="assets/SippiCup_logo.png" alt="Album" class="rounded-md mb-4 w-[240px] h-[190px]">
+                        <div class="flex items-center justify-between">
+                          <h3 class="font-semibold text-white truncate">Song Title</h3>
+                          <div class="flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 -2.5 21 21" version="1.1">
+                              <title>love [#1489]</title>
+                              <desc>Created with Sketch.</desc>
+                              <defs></defs>
+                              <g id="Page-1" stroke="none" stroke-width="1" fill="#b3b3b3" fill-rule="evenodd">
+                                  <g id="Dribbble-Light-Preview" transform="translate(-99.000000, -362.000000)" fill="#b3b3b3">
+                                      <g id="icons" transform="translate(56.000000, 160.000000)">
+                                          <path d="M55.5929644,215.348992 C55.0175653,215.814817 54.2783665,216.071721 53.5108177,216.071721 C52.7443189,216.071721 52.0030201,215.815817 51.4045211,215.334997 C47.6308271,212.307129 45.2284309,210.70073 45.1034811,207.405962 C44.9722313,203.919267 48.9832249,202.644743 51.442321,205.509672 C51.9400202,206.088455 52.687619,206.420331 53.4940177,206.420331 C54.3077664,206.420331 55.0606152,206.084457 55.5593644,205.498676 C57.9649106,202.67973 62.083004,203.880281 61.8950543,207.507924 C61.7270546,210.734717 59.2322586,212.401094 55.5929644,215.348992 M53.9066671,204.31012 C53.8037672,204.431075 53.6483675,204.492052 53.4940177,204.492052 C53.342818,204.492052 53.1926682,204.433074 53.0918684,204.316118 C49.3717243,199.982739 42.8029348,202.140932 43.0045345,207.472937 C43.1651842,211.71635 46.3235792,213.819564 50.0426732,216.803448 C51.0370217,217.601149 52.2739197,218 53.5108177,218 C54.7508657,218 55.9898637,217.59915 56.9821122,216.795451 C60.6602563,213.815565 63.7787513,211.726346 63.991901,207.59889 C64.2754005,202.147929 57.6173611,199.958748 53.9066671,204.31012" id="love-[#1489]"></path>
+                                      </g>
+                                  </g>
+                              </g>
+                            </svg>
+                            <span class="font-medium text-white text-[13px]">75</span>  
+                          </div>
+                        </div>
+                        <div class="flex items-center justify-start gap-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#b3b3b3" width="12px" height="12px" viewBox="0 0 100.353 100.353" id="Layer_1" version="1.1" xml:space="preserve">
+                              <g>
+                                <path d="M32.286,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,43.113,33.115,42.441,32.286,42.441z M30.786,52.203h-6.762v-6.762h6.762V52.203z"/>
+                                <path d="M55.054,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,43.113,55.882,42.441,55.054,42.441z M53.554,52.203h-6.762v-6.762h6.762V52.203z"/>
+                                <path d="M77.12,42.441h-9.762c-0.828,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,43.113,77.948,42.441,77.12,42.441z M75.62,52.203h-6.762v-6.762h6.762V52.203z"/>
+                                <path d="M32.286,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,65.349,33.115,64.677,32.286,64.677z M30.786,74.439h-6.762v-6.762h6.762V74.439z"/>
+                                <path d="M55.054,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,65.349,55.882,64.677,55.054,64.677z M53.554,74.439h-6.762v-6.762h6.762V74.439z"/>
+                                <path d="M77.12,64.677h-9.762c-0.828,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,65.349,77.948,64.677,77.12,64.677z M75.62,74.439h-6.762v-6.762h6.762V74.439z"/>
+                                <path d="M89,13.394h-9.907c-0.013,0-0.024,0.003-0.037,0.004V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994   H56.041V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994H33.025V11.4c0-3.268-2.658-5.926-5.926-5.926   s-5.926,2.659-5.926,5.926v1.995c-0.005,0-0.01-0.001-0.015-0.001h-9.905c-0.829,0-1.5,0.671-1.5,1.5V92.64   c0,0.828,0.671,1.5,1.5,1.5H89c0.828,0,1.5-0.672,1.5-1.5V14.894C90.5,14.065,89.828,13.394,89,13.394z M70.204,11.4   c0-1.614,1.312-2.926,2.926-2.926s2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926s-2.926-1.312-2.926-2.926V11.4z    M50.115,8.474c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926c-1.614,0-2.926-1.312-2.926-2.926v-4.643   c0.004-0.047,0.014-0.092,0.014-0.141s-0.01-0.094-0.014-0.141V11.4C47.189,9.786,48.501,8.474,50.115,8.474z M24.173,11.4   c0-1.614,1.312-2.926,2.926-2.926c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926   c-1.614,0-2.926-1.312-2.926-2.926V11.4z M87.5,91.14H12.753V16.394h8.405c0.005,0,0.01-0.001,0.015-0.001v3.285   c0,3.268,2.659,5.926,5.926,5.926s5.926-2.658,5.926-5.926v-3.283h11.164v3.283c0,3.268,2.659,5.926,5.926,5.926   s5.926-2.658,5.926-5.926v-3.283h11.163v3.283c0,3.268,2.658,5.926,5.926,5.926s5.926-2.658,5.926-5.926V16.39   c0.013,0,0.024,0.004,0.037,0.004H87.5V91.14z"/>
+                              </g>
+                            </svg>
+                            <span class="text-sm text-[#b3b3b3] truncate">Number of seasons</span>
+                        </div>
+                        <div class="flex flex-wrap items-start gap-1">
+                          <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Business</button>
+                          <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">News</button>
+                          <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Technology</button>
+                        </div>
+                        <p class="text-sm text-[#b3b3b3] truncate">Updated x days ago</p>
+                    </div>
+                    <div class="min-w-[280px] max-h-[350px] flex flex-col hover:bg-[#65350F] p-5 gap-1 rounded-lg bg-[#282828] transition-colors cursor-pointer">
+                        <img src="assets/SippiCup_logo.png" alt="Album" class="rounded-md mb-4 w-[240px] h-[190px]">
+                        <div class="flex items-center justify-between">
+                          <h3 class="font-semibold text-white truncate">Song Title</h3>
+                          <div class="flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 -2.5 21 21" version="1.1">
+                              <title>love [#1489]</title>
+                              <desc>Created with Sketch.</desc>
+                              <defs></defs>
+                              <g id="Page-1" stroke="none" stroke-width="1" fill="#b3b3b3" fill-rule="evenodd">
+                                  <g id="Dribbble-Light-Preview" transform="translate(-99.000000, -362.000000)" fill="#b3b3b3">
+                                      <g id="icons" transform="translate(56.000000, 160.000000)">
+                                          <path d="M55.5929644,215.348992 C55.0175653,215.814817 54.2783665,216.071721 53.5108177,216.071721 C52.7443189,216.071721 52.0030201,215.815817 51.4045211,215.334997 C47.6308271,212.307129 45.2284309,210.70073 45.1034811,207.405962 C44.9722313,203.919267 48.9832249,202.644743 51.442321,205.509672 C51.9400202,206.088455 52.687619,206.420331 53.4940177,206.420331 C54.3077664,206.420331 55.0606152,206.084457 55.5593644,205.498676 C57.9649106,202.67973 62.083004,203.880281 61.8950543,207.507924 C61.7270546,210.734717 59.2322586,212.401094 55.5929644,215.348992 M53.9066671,204.31012 C53.8037672,204.431075 53.6483675,204.492052 53.4940177,204.492052 C53.342818,204.492052 53.1926682,204.433074 53.0918684,204.316118 C49.3717243,199.982739 42.8029348,202.140932 43.0045345,207.472937 C43.1651842,211.71635 46.3235792,213.819564 50.0426732,216.803448 C51.0370217,217.601149 52.2739197,218 53.5108177,218 C54.7508657,218 55.9898637,217.59915 56.9821122,216.795451 C60.6602563,213.815565 63.7787513,211.726346 63.991901,207.59889 C64.2754005,202.147929 57.6173611,199.958748 53.9066671,204.31012" id="love-[#1489]"></path>
+                                      </g>
+                                  </g>
+                              </g>
+                            </svg>
+                            <span class="font-medium text-white text-[13px]">75</span>  
+                          </div>
+                        </div>
+                        <div class="flex items-center justify-start gap-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#b3b3b3" width="12px" height="12px" viewBox="0 0 100.353 100.353" id="Layer_1" version="1.1" xml:space="preserve">
+                              <g>
+                                <path d="M32.286,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,43.113,33.115,42.441,32.286,42.441z M30.786,52.203h-6.762v-6.762h6.762V52.203z"/>
+                                <path d="M55.054,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,43.113,55.882,42.441,55.054,42.441z M53.554,52.203h-6.762v-6.762h6.762V52.203z"/>
+                                <path d="M77.12,42.441h-9.762c-0.828,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,43.113,77.948,42.441,77.12,42.441z M75.62,52.203h-6.762v-6.762h6.762V52.203z"/>
+                                <path d="M32.286,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,65.349,33.115,64.677,32.286,64.677z M30.786,74.439h-6.762v-6.762h6.762V74.439z"/>
+                                <path d="M55.054,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,65.349,55.882,64.677,55.054,64.677z M53.554,74.439h-6.762v-6.762h6.762V74.439z"/>
+                                <path d="M77.12,64.677h-9.762c-0.828,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,65.349,77.948,64.677,77.12,64.677z M75.62,74.439h-6.762v-6.762h6.762V74.439z"/>
+                                <path d="M89,13.394h-9.907c-0.013,0-0.024,0.003-0.037,0.004V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994   H56.041V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994H33.025V11.4c0-3.268-2.658-5.926-5.926-5.926   s-5.926,2.659-5.926,5.926v1.995c-0.005,0-0.01-0.001-0.015-0.001h-9.905c-0.829,0-1.5,0.671-1.5,1.5V92.64   c0,0.828,0.671,1.5,1.5,1.5H89c0.828,0,1.5-0.672,1.5-1.5V14.894C90.5,14.065,89.828,13.394,89,13.394z M70.204,11.4   c0-1.614,1.312-2.926,2.926-2.926s2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926s-2.926-1.312-2.926-2.926V11.4z    M50.115,8.474c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926c-1.614,0-2.926-1.312-2.926-2.926v-4.643   c0.004-0.047,0.014-0.092,0.014-0.141s-0.01-0.094-0.014-0.141V11.4C47.189,9.786,48.501,8.474,50.115,8.474z M24.173,11.4   c0-1.614,1.312-2.926,2.926-2.926c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926   c-1.614,0-2.926-1.312-2.926-2.926V11.4z M87.5,91.14H12.753V16.394h8.405c0.005,0,0.01-0.001,0.015-0.001v3.285   c0,3.268,2.659,5.926,5.926,5.926s5.926-2.658,5.926-5.926v-3.283h11.164v3.283c0,3.268,2.659,5.926,5.926,5.926   s5.926-2.658,5.926-5.926v-3.283h11.163v3.283c0,3.268,2.658,5.926,5.926,5.926s5.926-2.658,5.926-5.926V16.39   c0.013,0,0.024,0.004,0.037,0.004H87.5V91.14z"/>
+                              </g>
+                            </svg>
+                            <span class="text-sm text-[#b3b3b3] truncate">Number of seasons</span>
+                        </div>
+                        <div class="flex flex-wrap items-start gap-1">
+                          <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Business</button>
+                          <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">News</button>
+                          <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Technology</button>
+                        </div>
+                        <p class="text-sm text-[#b3b3b3] truncate">Updated x days ago</p>
+                    </div>
+                    <div class="min-w-[280px] max-h-[350px] flex flex-col hover:bg-[#65350F] p-5 gap-1 rounded-lg bg-[#282828] transition-colors cursor-pointer">
+                        <img src="assets/SippiCup_logo.png" alt="Album" class="rounded-md mb-4 w-[240px] h-[190px]">
+                        <div class="flex items-center justify-between">
+                          <h3 class="font-semibold text-white truncate">Song Title</h3>
+                          <div class="flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 -2.5 21 21" version="1.1">
+                              <title>love [#1489]</title>
+                              <desc>Created with Sketch.</desc>
+                              <defs></defs>
+                              <g id="Page-1" stroke="none" stroke-width="1" fill="#b3b3b3" fill-rule="evenodd">
+                                  <g id="Dribbble-Light-Preview" transform="translate(-99.000000, -362.000000)" fill="#b3b3b3">
+                                      <g id="icons" transform="translate(56.000000, 160.000000)">
+                                          <path d="M55.5929644,215.348992 C55.0175653,215.814817 54.2783665,216.071721 53.5108177,216.071721 C52.7443189,216.071721 52.0030201,215.815817 51.4045211,215.334997 C47.6308271,212.307129 45.2284309,210.70073 45.1034811,207.405962 C44.9722313,203.919267 48.9832249,202.644743 51.442321,205.509672 C51.9400202,206.088455 52.687619,206.420331 53.4940177,206.420331 C54.3077664,206.420331 55.0606152,206.084457 55.5593644,205.498676 C57.9649106,202.67973 62.083004,203.880281 61.8950543,207.507924 C61.7270546,210.734717 59.2322586,212.401094 55.5929644,215.348992 M53.9066671,204.31012 C53.8037672,204.431075 53.6483675,204.492052 53.4940177,204.492052 C53.342818,204.492052 53.1926682,204.433074 53.0918684,204.316118 C49.3717243,199.982739 42.8029348,202.140932 43.0045345,207.472937 C43.1651842,211.71635 46.3235792,213.819564 50.0426732,216.803448 C51.0370217,217.601149 52.2739197,218 53.5108177,218 C54.7508657,218 55.9898637,217.59915 56.9821122,216.795451 C60.6602563,213.815565 63.7787513,211.726346 63.991901,207.59889 C64.2754005,202.147929 57.6173611,199.958748 53.9066671,204.31012" id="love-[#1489]"></path>
+                                      </g>
+                                  </g>
+                              </g>
+                            </svg>
+                            <span class="font-medium text-white text-[13px]">75</span>  
+                          </div>
+                        </div>
+                        <div class="flex items-center justify-start gap-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#b3b3b3" width="12px" height="12px" viewBox="0 0 100.353 100.353" id="Layer_1" version="1.1" xml:space="preserve">
+                              <g>
+                                <path d="M32.286,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,43.113,33.115,42.441,32.286,42.441z M30.786,52.203h-6.762v-6.762h6.762V52.203z"/>
+                                <path d="M55.054,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,43.113,55.882,42.441,55.054,42.441z M53.554,52.203h-6.762v-6.762h6.762V52.203z"/>
+                                <path d="M77.12,42.441h-9.762c-0.828,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,43.113,77.948,42.441,77.12,42.441z M75.62,52.203h-6.762v-6.762h6.762V52.203z"/>
+                                <path d="M32.286,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,65.349,33.115,64.677,32.286,64.677z M30.786,74.439h-6.762v-6.762h6.762V74.439z"/>
+                                <path d="M55.054,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,65.349,55.882,64.677,55.054,64.677z M53.554,74.439h-6.762v-6.762h6.762V74.439z"/>
+                                <path d="M77.12,64.677h-9.762c-0.828,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,65.349,77.948,64.677,77.12,64.677z M75.62,74.439h-6.762v-6.762h6.762V74.439z"/>
+                                <path d="M89,13.394h-9.907c-0.013,0-0.024,0.003-0.037,0.004V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994   H56.041V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994H33.025V11.4c0-3.268-2.658-5.926-5.926-5.926   s-5.926,2.659-5.926,5.926v1.995c-0.005,0-0.01-0.001-0.015-0.001h-9.905c-0.829,0-1.5,0.671-1.5,1.5V92.64   c0,0.828,0.671,1.5,1.5,1.5H89c0.828,0,1.5-0.672,1.5-1.5V14.894C90.5,14.065,89.828,13.394,89,13.394z M70.204,11.4   c0-1.614,1.312-2.926,2.926-2.926s2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926s-2.926-1.312-2.926-2.926V11.4z    M50.115,8.474c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926c-1.614,0-2.926-1.312-2.926-2.926v-4.643   c0.004-0.047,0.014-0.092,0.014-0.141s-0.01-0.094-0.014-0.141V11.4C47.189,9.786,48.501,8.474,50.115,8.474z M24.173,11.4   c0-1.614,1.312-2.926,2.926-2.926c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926   c-1.614,0-2.926-1.312-2.926-2.926V11.4z M87.5,91.14H12.753V16.394h8.405c0.005,0,0.01-0.001,0.015-0.001v3.285   c0,3.268,2.659,5.926,5.926,5.926s5.926-2.658,5.926-5.926v-3.283h11.164v3.283c0,3.268,2.659,5.926,5.926,5.926   s5.926-2.658,5.926-5.926v-3.283h11.163v3.283c0,3.268,2.658,5.926,5.926,5.926s5.926-2.658,5.926-5.926V16.39   c0.013,0,0.024,0.004,0.037,0.004H87.5V91.14z"/>
+                              </g>
+                            </svg>
+                            <span class="text-sm text-[#b3b3b3] truncate">Number of seasons</span>
+                        </div>
+                        <div class="flex flex-wrap items-start gap-1">
+                          <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Business</button>
+                          <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">News</button>
+                          <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Technology</button>
+                        </div>
+                        <p class="text-sm text-[#b3b3b3] truncate">Updated x days ago</p>
+                    </div>
+                  </div>
+              </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- The Podcast modal -->
+    <div class="modal hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50" id="podcast-modal">
+        <div class="bg-[#121212] rounded-lg p-6 mx-4 w-[900px] h-[615px] top-[242px] left-[456px] rounded-[6px] opacity-100 transform-none overflow-x-auto">
+            <div class="modal-actions flex justify-between items-center mb-4">
+                <h2 id="pod-title" class="text-3xl font-bold  text-[#fff] px-4">Podcast Title</h2>
+                <button type="button" class="py-2 text-3xl font-extrablack text-[#EA5555] hover:text-red-900" id="cancel-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="#b3b3b3" width="22px" height="22px" viewBox="0 0 32 32" version="1.1">
+                    <title>cancel2</title>
+                    <path d="M19.587 16.001l6.096 6.096c0.396 0.396 0.396 1.039 0 1.435l-2.151 2.151c-0.396 0.396-1.038 0.396-1.435 0l-6.097-6.096-6.097 6.096c-0.396 0.396-1.038 0.396-1.434 0l-2.152-2.151c-0.396-0.396-0.396-1.038 0-1.435l6.097-6.096-6.097-6.097c-0.396-0.396-0.396-1.039 0-1.435l2.153-2.151c0.396-0.396 1.038-0.396 1.434 0l6.096 6.097 6.097-6.097c0.396-0.396 1.038-0.396 1.435 0l2.151 2.152c0.396 0.396 0.396 1.038 0 1.435l-6.096 6.096z"/>
+                  </svg>
+                </button>
+            </div>
+            <div id="Podcast-details" class="flex-row items-center justify-between p-4">
+                <img id="pod-image" src="assets/SippiCup_logo.png" alt="Album" class="rounded-md mb-4 w-[250px] h-[200px]">
+                <div class="form-group mb-4 flex flex-col gap-3">
+                    <h2 class="block text-xl font-medium text-white mb-1">Describtion</h2>
+                    <p id="pod-desc" class="text-base text-[#b3b3b3]">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut blandit magna eget facilisis feugiat. In sem nunc, sagittis ut vulputate eget, hendrerit et lorem. 
+                      Praesent odio odio, venenatis sit amet mi in, accumsan venenatis odio. Donec pretium ipsum a mi mollis euismod. Vestibulum libero urna, fringilla ac ultricies eget, sollicitudin a dolor. 
+                      Phasellus in diam vulputate, pellentesque dui quis, dignissim augue. Etiam placerat purus et dolor vulputate, id vestibulum mauris pellentesque. Aenean vel ullamcorper quam, nec finibus nibh. 
+                      Nullam luctus et odio et laoreet. Integer vitae urna et quam facilisis consectetur. Duis vel purus tortor. Morbi consequat ultrices diam, eget congue diam viverra eget.
+                    </p>
+                    <h2 class="block text-xl font-medium text-white mb-1">Genres</h2>
+                    <div id="genre-list"class="flex flex-wrap items-start gap-1">
+                      <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Business</button>
+                      <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">News</button>
+                      <button class="bg-[#F4F4F4] w-fit h-fit px-1 text-sm text-[#121212] truncate">Technology</button>
+                    </div>
+                    <div class="flex items-center justify-start gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#b3b3b3" width="12px" height="12px" viewBox="0 0 100.353 100.353" id="Layer_1" version="1.1" xml:space="preserve">
+                        <g>
+                          <path d="M32.286,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,43.113,33.115,42.441,32.286,42.441z M30.786,52.203h-6.762v-6.762h6.762V52.203z"/>
+                          <path d="M55.054,42.441h-9.762c-0.829,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,43.113,55.882,42.441,55.054,42.441z M53.554,52.203h-6.762v-6.762h6.762V52.203z"/>
+                          <path d="M77.12,42.441h-9.762c-0.828,0-1.5,0.671-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,43.113,77.948,42.441,77.12,42.441z M75.62,52.203h-6.762v-6.762h6.762V52.203z"/>
+                          <path d="M32.286,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.829,0,1.5-0.672,1.5-1.5   v-9.762C33.786,65.349,33.115,64.677,32.286,64.677z M30.786,74.439h-6.762v-6.762h6.762V74.439z"/>
+                          <path d="M55.054,64.677h-9.762c-0.829,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.671,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5   v-9.762C56.554,65.349,55.882,64.677,55.054,64.677z M53.554,74.439h-6.762v-6.762h6.762V74.439z"/>
+                          <path d="M77.12,64.677h-9.762c-0.828,0-1.5,0.672-1.5,1.5v9.762c0,0.828,0.672,1.5,1.5,1.5h9.762c0.828,0,1.5-0.672,1.5-1.5v-9.762   C78.62,65.349,77.948,64.677,77.12,64.677z M75.62,74.439h-6.762v-6.762h6.762V74.439z"/>
+                          <path d="M89,13.394h-9.907c-0.013,0-0.024,0.003-0.037,0.004V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994   H56.041V11.4c0-3.268-2.658-5.926-5.926-5.926s-5.926,2.659-5.926,5.926v1.994H33.025V11.4c0-3.268-2.658-5.926-5.926-5.926   s-5.926,2.659-5.926,5.926v1.995c-0.005,0-0.01-0.001-0.015-0.001h-9.905c-0.829,0-1.5,0.671-1.5,1.5V92.64   c0,0.828,0.671,1.5,1.5,1.5H89c0.828,0,1.5-0.672,1.5-1.5V14.894C90.5,14.065,89.828,13.394,89,13.394z M70.204,11.4   c0-1.614,1.312-2.926,2.926-2.926s2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926s-2.926-1.312-2.926-2.926V11.4z    M50.115,8.474c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926c-1.614,0-2.926-1.312-2.926-2.926v-4.643   c0.004-0.047,0.014-0.092,0.014-0.141s-0.01-0.094-0.014-0.141V11.4C47.189,9.786,48.501,8.474,50.115,8.474z M24.173,11.4   c0-1.614,1.312-2.926,2.926-2.926c1.613,0,2.926,1.312,2.926,2.926v8.277c0,1.613-1.312,2.926-2.926,2.926   c-1.614,0-2.926-1.312-2.926-2.926V11.4z M87.5,91.14H12.753V16.394h8.405c0.005,0,0.01-0.001,0.015-0.001v3.285   c0,3.268,2.659,5.926,5.926,5.926s5.926-2.658,5.926-5.926v-3.283h11.164v3.283c0,3.268,2.659,5.926,5.926,5.926   s5.926-2.658,5.926-5.926v-3.283h11.163v3.283c0,3.268,2.658,5.926,5.926,5.926s5.926-2.658,5.926-5.926V16.39   c0.013,0,0.024,0.004,0.037,0.004H87.5V91.14z"/>
+                        </g>
+                      </svg>
+                      <span class="text-sm text-[#b3b3b3] truncate">Last updated:</span>
+                      <span id="last-updated-date" class="text-sm text-[#b3b3b3] truncate">Last updated</span>
+                    </div>
+                </div>
+                <div id="seasons-container" class="form-group relative mb-6">
+                    <h2 class="block text-xl font-medium text-[#fff] mb-4">Seasons</h2>
+                    <div class="w-full px-2 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-600 text-gray-400 [&>option:checked]:text-black">
+                        <h4 id="pod-seasons" class="block text-l font-medium text-[#fff] p-2">Season 1: Getting started</h4>
+                        <div class="flex items-center justify-between">
+                          <span id="season-title" class="text-sm font-medium text-[#b3b3b3] p-2">Introduction to the fundementals</span>
+                          <span id="num-episodes" class="text-sm font-medium text-[#b3b3b3] p-2">12 Episodes</span>
+                        </div>
+                    </div>
+                </div>
+              </div>
+        </div>
+    </div>
+
+    <!-- Player Controls -->
+    <footer class="hidden bottom-0 left-0 right-0 w-full fixed bg-[#181818] h-25 flex-1 flex-shrink-0 flex flex-col items-center justify-between border-t border-[#333] p-4 text-[#b3b3b3] z-50">
+        <!-- Progress Bar -->
+        <div class="flex items-center w-full mb-4">
+            <span class="w-12 text-right" id="currentTime">0:00</span>
+            <div id="progressBar" class="flex-1 mx-4 h-2 bg-[#D9D9D9] rounded cursor-pointer relative progress-bar">
+                <div id="progress" class="h-full bg-[#652A0E] rounded relative" style="width: 46%">
+                    <span class="absolute w-3 h-3 bg-[#D9D9D9] rounded-full -right-1.5 top-1/2 -translate-y-1/2 opacity-0 transition-opacity progress-handle"></span>
+                </div>
+            </div>
+            <span class="w-12" id="totalDuration">3:45</span>
+        </div>
+        
+        <!-- Controls -->
+        <div class="flex items-center justify-between md:justify-around w-full">
+            <!-- Song Info -->
+            <div class="flex items-center justify-start w-[20%] md:w-[33%] md:mr-4">
+                <img src="assets/SippiCup_logo.png" alt="Album cover" class="rounded-md w-[50px] h-[50px] md:mr-4" />
+                <div class="hidden md:block flex flex-col justify-center items-start ">
+                    <span class="font-medium text-[#fff] text-[15px]">Podcast Title</span>
+                    <span class="font-medium text-[#b3b3b3] text-[13px]">Season 1</span>
+                    <span class="font-medium text-[#b3b3b3] text-[11px]">Episode 4</span>
+                </div>
+            </div>
+            
+            <!-- Playback Controls -->
+            <div class="flex items-center justify-center w-[50%] md:w-[33%] md:space-x-2">
+                <button id="shuffleBtn" class="hidden md:block text-xl cursor-pointer text-[#b3b3b3] hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#b3b3b3" width="22px" height="22px" viewBox="0 0 24 24" id="shuffle" data-name="Flat Line" class="icon flat-line"><path id="primary" d="M3,8H5.28a6,6,0,0,1,4.51,2.05L13.21,14A6,6,0,0,0,17.72,16H21" style="fill: none; stroke: #b3b3b3; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"/>
+                      <polyline id="primary-2" data-name="primary" points="19 14 21 16 19 18" style="fill: none; stroke: #b3b3b3; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"/>
+                      <path id="primary-3" data-name="primary" d="M21,8H17.72a6,6,0,0,0-4.51,2.05L9.79,14A6,6,0,0,1,5.28,16H3" style="fill: none; stroke: #b3b3b3; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"/>
+                      <polyline id="primary-4" data-name="primary" points="19 6 21 8 19 10" style="fill: none; stroke: #b3b3b3; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"/>
+                    </svg>
+                </button>
+                <button class="text-2xl cursor-pointer text-[#b3b3b3] hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#b3b3b3" width="22px" height="22px" viewBox="0 0 24 24" id="fast-forward" data-name="Flat Color" class="icon flat-color" transform="matrix(-1, 0, 0, 1, 0, 0)">
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                      <g id="SVGRepo_iconCarrier">
+                        <path id="primary" d="M21.55,11.17l-9-6a1,1,0,0,0-1,0A1,1,0,0,0,11,6v4.13l-7.45-5a1,1,0,0,0-1,0A1,1,0,0,0,2,6V18a1,1,0,0,0,.53.88,1,1,0,0,0,1-.05l7.45-5V18a1,1,0,0,0,.53.88,1,1,0,0,0,1-.05l9-6a1,1,0,0,0,0-1.66Z" style="fill: #b3b3b3;"/>
+                      </g>
+                    </svg>
+                </button>
+                
+                <button id="playPauseBtn" class="text-3xl cursor-pointer text-[#b3b3b3] rounded-full p-2 hover:scale-105">
+                    <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24">
+                        <g>
+                            <path fill="#b3b3b3" d="M0 0h24v24H0z"/>
+                            <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM10.622 8.415l4.879 3.252a.4.4 0 0 1 0 .666l-4.88 3.252a.4.4 0 0 1-.621-.332V8.747a.4.4 0 0 1 .622-.332z"/>
+                        </g>
+                    </svg>
+                    <svg class="hidden" id="pauseIcon" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="#b3b3b3">
+                      <g id="Media / Pause_Circle">
+                        <path id="Vector" d="M14 9V15M10 9V15M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </g>
+                    </svg>
+                </button>
+                
+                <button class="hidden md:block text-2xl cursor-pointer text-[#b3b3b3] hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24" fill="#b3b3b3">
+                      <path d="M12 21C10.22 21 8.47991 20.4722 6.99987 19.4832C5.51983 18.4943 4.36628 17.0887 3.68509 15.4442C3.0039 13.7996 2.82567 11.99 3.17294 10.2442C3.5202 8.49836 4.37737 6.89472 5.63604 5.63604C6.89472 4.37737 8.49836 3.5202 10.2442 3.17294C11.99 2.82567 13.7996 3.0039 15.4442 3.68509C17.0887 4.36628 18.4943 5.51983 19.4832 6.99987C20.4722 8.47991 21 10.22 21 12C21 14.387 20.0518 16.6761 18.364 18.364C16.6761 20.0518 14.387 21 12 21ZM12 4.5C10.5166 4.5 9.0666 4.93987 7.83323 5.76398C6.59986 6.58809 5.63856 7.75943 5.07091 9.12988C4.50325 10.5003 4.35473 12.0083 4.64411 13.4632C4.9335 14.918 5.64781 16.2544 6.6967 17.3033C7.7456 18.3522 9.08197 19.0665 10.5368 19.3559C11.9917 19.6453 13.4997 19.4968 14.8701 18.9291C16.2406 18.3614 17.4119 17.4001 18.236 16.1668C19.0601 14.9334 19.5 13.4834 19.5 12C19.5 10.0109 18.7098 8.10323 17.3033 6.6967C15.8968 5.29018 13.9891 4.5 12 4.5Z" fill="#b3b3b3"/>
+                      <path d="M14.5 8H9.5C8.67157 8 8 8.67157 8 9.5V14.5C8 15.3284 8.67157 16 9.5 16H14.5C15.3284 16 16 15.3284 16 14.5V9.5C16 8.67157 15.3284 8 14.5 8Z" fill="#b3b3b3"/>
+                    </svg>
+                </button>
+
+                <button class="text-2xl cursor-pointer text-[#b3b3b3] hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#b3b3b3" width="22px" height="22px" viewBox="0 0 24 24" id="fast-forward" data-name="Flat Color" class="icon flat-color"><path id="primary" d="M21.55,11.17l-9-6a1,1,0,0,0-1,0A1,1,0,0,0,11,6v4.13l-7.45-5a1,1,0,0,0-1,0A1,1,0,0,0,2,6V18a1,1,0,0,0,.53.88,1,1,0,0,0,1-.05l7.45-5V18a1,1,0,0,0,.53.88,1,1,0,0,0,1-.05l9-6a1,1,0,0,0,0-1.66Z" style="fill: #b3b3b3"/></svg>
+                </button>
+
+                <button id="repeatBtn" class="hidden md:block text-xl cursor-pointer text-[#b3b3b3] hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" viewBox="0 0 24 24" fill="none">
+                      <path d="M17 2L21 6M21 6L17 10M21 6H7.8C6.11984 6 5.27976 6 4.63803 6.32698C4.07354 6.6146 3.6146 7.07354 3.32698 7.63803C3 8.27976 3 9.11984 3 10.8V11M3 18H16.2C17.8802 18 18.7202 18 19.362 17.673C19.9265 17.3854 20.3854 16.9265 20.673 16.362C21 15.7202 21 14.8802 21 13.2V13M3 18L7 22M3 18L7 14" stroke="#b3b3b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Volume Controls -->
+            <div class="flex items-center justify-end w-[20%] md:w-[33%]">
+                <button class="hidden md:block text-xl cursor-pointer text-[#b3b3b3] hover:text-white mr-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#b3b3b3" width="24px" height="24px" viewBox="-1.5 0 19 19" class="cf-icon-svg"><path d="M7.676 4.938v9.63c0 .61-.353.756-.784.325l-2.896-2.896H2.02A1.111 1.111 0 0 1 .911 10.89V8.618a1.112 1.112 0 0 1 1.108-1.109h1.977l2.896-2.896c.43-.43.784-.284.784.325zm7.251 6.888a.554.554 0 1 1-.784.784l-2.072-2.073-2.073 2.073a.554.554 0 1 1-.784-.784l2.073-2.073L9.214 7.68a.554.554 0 0 1 .784-.783L12.07 8.97l2.072-2.073a.554.554 0 0 1 .784.783l-2.072 2.073z"/></svg>
+                </button>
+                <input 
+                    type="range" 
+                    min="0" 
+                    max="100" 
+                    value="50" 
+                    id="volumeControl"
+                    class="w-24 mr-2"
+                />
+                <button class="hidden md:block text-xl cursor-pointer text-[#b3b3b3] hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#b3b3b3" height="20px" width="20px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve">
+                      <g>
+                        <g>
+                          <path d="M240.478,42.234l-140.282,96.87v233.791l140.282,96.87c10.986,8.178,26.712,0.38,26.712-13.373V55.607    C267.19,41.939,251.545,34.024,240.478,42.234z"/>
+                        </g>
+                      </g>
+                      <g>
+                        <g>
+                          <path d="M438.761,89.335c-6.523-6.523-17.091-6.523-23.614,0s-6.523,17.091,0,23.614c84.606,84.638,84.606,222.408,0,307.047    c-6.523,6.523-6.523,17.091,0,23.614c6.524,6.524,17.091,6.524,23.614,0C536.413,345.925,536.413,187.019,438.761,89.335z"/>
+                        </g>
+                      </g>
+                      <g>
+                        <g>
+                          <path d="M391.501,136.563c-6.523-6.523-17.091-6.523-23.614,0c-6.523,6.523-6.523,17.091,0,23.614    c58.578,58.61,58.578,153.981,0,212.591c-6.523,6.523-6.523,17.091,0,23.614c6.524,6.524,17.091,6.524,23.614,0    C463.093,324.757,463.093,208.187,391.501,136.563z"/>
+                        </g>
+                      </g>
+                      <g>
+                        <g>
+                          <path d="M344.305,183.823c-6.523-6.523-17.091-6.523-23.614,0c-6.523,6.523-6.523,17.091,0,23.614    c32.55,32.55,32.55,85.519-0.032,118.103c-6.523,6.523-6.523,17.09,0,23.614c6.523,6.524,17.091,6.524,23.614,0    C389.87,303.556,389.87,229.388,344.305,183.823z"/>
+                        </g>
+                      </g>
+                      <g>
+                        <g>
+                          <path d="M16.699,139.104C7.477,139.104,0,146.581,0,155.804v200.393c0,9.223,7.477,16.699,16.699,16.699h50.098V139.104H16.699z"/>
+                        </g>
+                      </g>
+                    </svg>
+                </button>
+                <span class="hidden md:block text-sm ml-2 w-8" id="volumeValue">80%</span>
+            </div>
+        </div>
+    </footer>
+    <script type="module" src="src/index.js"></script>
+  </body>
+</html>
