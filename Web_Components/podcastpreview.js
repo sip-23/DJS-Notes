@@ -1,20 +1,29 @@
-// Never change style of things inside of your custom components, 
-// you want it to be separate from the rest of you application and all styles to apply to anything inside and outside styles dont apply to anything inside
-// Dont style your HTML on your exact element, Instead use the Shadow DOM.
+/**
+ * Web Component that displays a preview card for a podcast.
+ * Includes image, title, seasons, genres, and update information.
+ *
+ * @element podcast-preview
+ * @fires podcastSelected - Dispatched when a card is clicked, includes { id, title, image } in detail.
+ */
 
-
+// 1. Start of with the Class Definition where we create a new class called
+// 2. It extends HTMLElement because we’re building a Web Component that behaves like a native HTML element.
 class PodcastPreview extends HTMLElement {
     // this constructor makes sure we call our only html constructor
+     /**
+     * Creates a PodcastPreview element with shadow DOM and default values.
+     */
     constructor() {
-        // calling the base class
+        // 3. Then we have the constructor, Method runs when the component is created.
         super();
+        // 4. super() → calls the HTMLElement constructor
         
-        // Creating shadow DOM for encapsulation (encapsulated part of our web component)
-        // This attaches a shadow DOM and allows us to make modifications to shadow DOM
-        // Styles can leak in and styles can leak out
+        // 5. Creating shadow DOM for for style and DOM encapsulation. (encapsulated part of our web component)
         this.shadow = this.attachShadow({ mode: 'open' });
+        // 6. Open mode means external JS can still access it (element.shadowRoot).
         
-        // Default values
+        // 7. then I define Default Property values
+        // 8. These store state until attributes are set.
         this._image = '';
         this._title = '';
         this._genres = [];
@@ -23,17 +32,31 @@ class PodcastPreview extends HTMLElement {
     }
     
     // Defining the the attributes to observe
+     /**
+     * Defines which attributes should be observed for changes.
+     * @returns {string[]} List of attribute names.
+     */
+
+    // 9. set a static property with a Getter which Return an array of all the Attributes you want to observe
     static get observedAttributes() {
         return ['image', 'title', 'genres', 'seasons', 'updated'];
     }
     
     // Handle attribute changes
-    // Now we need to register custom element with the DOM
-    // Property 1: Name. Must comply with Normal HTML attribute properties and also have a "-" to show that its a custom element
-    // Property 2: Defined custom class for custom element
-    // We define a custom element which is defined by our class
-    // This we do everything i told it inside the class
+     /**
+     * Called whenever an observed attribute is added, removed, or changed.
+     *
+     * @param {string} name - The name of the changed attribute.
+     * @param {string|null} oldValue - The old attribute value.
+     * @param {string|null} newValue - The new attribute value.
+     * @returns {void}
+     */
+
+    // 10. Whenever the attributes changes or whenever my page loads , Use a Callback
+    // Lifecycle method fired when one of the observed attributes changes.
     attributeChangedCallback(name, oldValue, newValue) {
+        // 11. Checks if the new value differs (oldValue === newValue).
+        // Updates the corresponding internal property
         if (oldValue === newValue) return;
         
         switch(name) {
@@ -45,9 +68,9 @@ class PodcastPreview extends HTMLElement {
                 break;
             case 'genres':
                 try {
-                    this._genres = JSON.parse(newValue);
+                    this._genres = JSON.parse(newValue); // 12. parsed as JSON because it could be passed as ['Drama', 'Comedy']
                 } catch (e) {
-                    this._genres = [newValue];
+                    this._genres = [newValue];  // 13. Falls back to a single string if parsing fails.
                 }
                 break;
             case 'seasons':
@@ -56,18 +79,23 @@ class PodcastPreview extends HTMLElement {
             case 'updated':
                 this._updated = newValue;
                 break;
-            case 'likes':
-                this._likes = parseInt(newValue) || 0;
-                break;
         }
         
+        // 14. render() is called only if the component is connected to the DOM.
         // If the component has been connected, update the rendering
         if (this.isConnected) {
             this.render();
         }
     }
     
-    // Calculate days since last update
+    // Calculating the days since last update
+    /**
+     * Calculates the number of days since the podcast was last updated.
+     *
+     * @returns {number} Days since last update. Returns 0 if no update date is available.
+     */
+
+    // 15. Converts the updated date into a difference in days, used in the UI (Updated 5 days ago).
     calculateDaysSinceUpdate() {
         if (!this._updated) return 0;
         
@@ -78,10 +106,19 @@ class PodcastPreview extends HTMLElement {
     }
     
     // Handle click events
+    /**
+     * Handles click events on the podcast card.
+     * Dispatches a `podcastSelected` event with details.
+     *
+     * @fires podcastSelected
+     * @returns {void}
+     */
+
+    // 16. Then I created a Click Handler - Dispatches a custom event when the card is clicked and Allows parent elements to listen and react
     handleClick() {
-        // Create and dispatch a custom event
+        // Creating and dispatching a custom event
         const podcastEvent = new CustomEvent('podcastSelected', {
-            bubbles: true,
+            bubbles: true,     // 17. event travels up the DOM tree Allowing parent elements to listen and react
             detail: {
                 id: this.id,
                 title: this._title,
@@ -93,6 +130,14 @@ class PodcastPreview extends HTMLElement {
     }
     
     // Render the component
+    // also added Tailwind css inside Web component shadow DOM as it it was only inject its styles onto the global document and not shadow roots
+    /**
+     * Renders the podcast preview card inside the shadow DOM.
+     *
+     * @returns {void}
+     */
+
+    // 18. Then this Render Function creates the component’s HTML inside shadow DOM.
     render() {
         const daysSinceUpdate = this.calculateDaysSinceUpdate();
         
@@ -171,19 +216,6 @@ class PodcastPreview extends HTMLElement {
                 <img src="${this._image}" alt="${this._title}" class="podcast-image rounded-md w-[240px] h-[190px] object-cover">
                 <div class="flex items-center justify-between">
                     <h3 class="title font-semibold text-white truncate">${this._title}</h3>
-                    <div class="flex items-center">
-                        <svg class="dark:fill-[#b3b3b3]" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 -2.5 21 21" version="1.1">
-                            <title>love [#1489]</title>
-                            <desc>Created with Sketch.</desc>
-                            <defs></defs>
-                            <g id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd">
-                                <g id="Dribbble-Light-Preview" transform="translate(-99.000000, -362.000000)">
-                                    <g id="icons" transform="translate(56.000000, 160.000000)">
-                                        <path d="M55.5929644,215.348992 C55.0175653,215.814817 54.2783665,216.071721 53.5108177,216.071721 C52.7443189,216.071721 52.0030201,215.815817 51.4045211,215.334997 C47.6308271,212.307129 45.2284309,210.70073 45.1034811,207.405962 C44.9722313,203.919267 48.9832249,202.644743 51.442321,205.509672 C51.9400202,206.088455 52.687619,206.420331 53.4940177,206.420331 C54.3077664,206.420331 55.0606152,206.084457 55.5593644,205.498676 C57.9649106,202.67973 62.083004,203.880281 61.8950543,207.507924 C61.7270546,210.734717 59.2322586,212.401094 55.5929644,215.348992 M53.9066671,204.31012 C53.8037672,204.431075 53.6483675,204.492052 53.4940177,204.492052 C53.342818,204.492052 53.1926682,204.433074 53.0918684,204.316118 C49.3717243,199.982739 42.8029348,202.140932 43.0045345,207.472937 C43.1651842,211.71635 46.3235792,213.819564 50.0426732,216.803448 C51.0370217,217.601149 52.2739197,218 53.5108177,218 C54.7508657,218 55.9898637,217.59915 56.9821122,216.795451 C60.6602563,213.815565 63.7787513,211.726346 63.991901,207.59889 C64.2754005,202.147929 57.6173611,199.958748 53.9066671,204.31012" id="love-[#1489]"></path>
-                            </g>
-                        </svg>
-                        <span class="font-medium text-white text-[13px]">${this._likes}</span>  
-                    </div>
                 </div>
                 <div class="flex items-center justify-start gap-2">
                     <svg class="fill-[#b3b3b3]" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 100.353 100.353" id="Layer_1" version="1.1" xml:space="preserve">
@@ -210,15 +242,23 @@ class PodcastPreview extends HTMLElement {
         
         // Add click event listener
         this.shadowRoot.querySelector('.podcast-card').addEventListener('click', () => {
-            this.handleClick();
+            this.handleClick();  // 19. Click listener ensures clicking triggers handleClick()
         });
     }
     
-    // Called when the element is added to the DOM
+    // Rendering using connected Callback life cycle event: When the element is added to the DOM we can this call
+    /**
+     * Called when the component is added to the DOM.
+     * Triggers initial render.
+     *
+     * @returns {void}
+     */
+
+    // 20. Then I call the Connected Callback
     connectedCallback() {
         this.render();
     }
 }
 
-// Register the custom element
+// 21. Register the custom element and Registers the component with the browser under the name <podcast-preview>
 customElements.define('podcast-preview', PodcastPreview);
