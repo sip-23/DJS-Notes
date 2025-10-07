@@ -11,7 +11,7 @@ import { useState, useEffect } from 'react';
  * @returns {Object} - An object containing:
  *   @property {Array} data - The fetched podcast data.
  *   @property {boolean} isLoading - Loading state indicator.
- *   @property {string|null} error - Error message if the fetch fails.
+ *   @property {string|null} error - Error message if the fetch fails. 
  */
 
 // 2. Define my custom hook named useFetchPodcasts.

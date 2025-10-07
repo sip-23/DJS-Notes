@@ -6,7 +6,7 @@ import { useState, useEffect, useRef } from "react";
 /**
  * Header Component
  *
- * A fixed top navigation bar
+ * A fixed top navigation bar 
  * @component
  */
 

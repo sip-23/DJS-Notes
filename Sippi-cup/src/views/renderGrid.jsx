@@ -2,7 +2,7 @@
 import PodcastCard from '../components/PodcastsCard';
 
 /**
- * PodcastGrid component renders a responsive grid of PodcastCard components creating a grid layout.
+ * PodcastGrid component renders a responsive grid of PodcastCard components creating a grid layout. 
  *
  * @component
  * @param {Object} props - Component props.

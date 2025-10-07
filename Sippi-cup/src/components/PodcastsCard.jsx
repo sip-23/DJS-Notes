@@ -7,7 +7,7 @@ import { genres } from "../../../data.js";
  *
  * @component
  * @param {Object} props - Component props.
- * @param {Object} props.podcast - The podcast object 
+ * @param {Object} props.podcast - The podcast object  
  * @param {string} props.podcast.id - Unique id
  * @param {string} props.podcast.title - Title
  * @param {string} props.podcast.image - URL of the podcast image

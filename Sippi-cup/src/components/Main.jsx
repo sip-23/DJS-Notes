@@ -3,7 +3,7 @@
 // - useMemo is a Hook that memoizes (caches) expensive computations until dependencies change.
 import { useState, useMemo } from "react";
 // useState for state management.
-// useMemo for performance optimization
+// useMemo for performance optimization 
 
 // 2. Then I Import child components (custom JSX tags).
 // - They are just React functions that return JSX. and Each will receive props (custom attributes).

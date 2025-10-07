@@ -1,19 +1,18 @@
+// 1. here, This one introduces useEffect, dependency management, and derived state calculation.
 import { useState, useEffect } from "react";
 
 /**
  * Pagination Component
  * 
- * The count or numbered pages with navigation buttons
+ * The count or numbered pages with navigation buttons 
  * @component
  */
-const Pagination = ({ 
-    currentPage, 
-    totalPages, 
-    totalPosts, 
-    postsPerPage, 
-    onPageChange 
-}) => {
-    const [pageNumbers, setPageNumbers] = useState([]);
+
+// 2. Props: externally controlled pagination state.
+const Pagination = ({ currentPage, totalPages, totalPosts, postsPerPage, onPageChange }) => {
+        // 3. State: pageNumbers is a derived UI subset — local to this component.
+        const [pageNumbers, setPageNumbers] = useState([]);
+        // 4. Parent likely owns currentPage and onPageChange (classic state lifting pattern).
 
     // Calculating visible page numbers at the bottom: 1, 2, 3, ... 7
     useEffect(() => {
@@ -34,9 +33,27 @@ const Pagination = ({
         setPageNumbers(numbers);
     }, [currentPage, totalPages]);
 
-    if (totalPages <= 1) return null;
+    // 5. Effect hook (useEffect):
+    // - Executes after the component renders or updates.
+    // - Dependency array [currentPage, totalPages] means:
+    //      - The effect re-runs only when currentPage or totalPages changes.
+    //      - Prevents unnecessary recalculation of pageNumbers (performance optimization).
 
+    // 4. Algorithm:
+    // - Dynamically computes visible page indices (e.g., 3 pages visible around the current one).
+    // - Uses Math operations to clamp page ranges.
+    // - Updates local state (setPageNumbers) to trigger UI re-render.
+
+    // 5. Functional purity:
+    // The computation is deterministic and side-effect-free except for the controlled state update.
+
+    if (totalPages <= 1) return null;
+    // 6. Short-circuit return — prevents rendering pagination UI when unnecessary.
+    // - A common conditional rendering pattern in React.
+
+    // Calculates the range of posts being displayed.
     const startPost = (currentPage - 1) * postsPerPage + 1;
+    // Derived values used in UI copy (no state, pure computation).
     const endPost = Math.min(currentPage * postsPerPage, totalPosts);
 
     return (
@@ -48,7 +65,10 @@ const Pagination = ({
 
             {/* Page numbers */}
             <div className="flex items-center gap-1">
-                {/* Previous button */}
+                {/* Previous button
+                - Uses inline arrow functions for event handlers.
+                - Ensures the parent receives page-change events.
+                - disabled prop uses a boolean condition for UX control. */}
                 <button
                     onClick={() => onPageChange(currentPage - 1)}
                     disabled={currentPage === 1}
@@ -57,7 +77,10 @@ const Pagination = ({
                     Previous
                 </button>
 
-                {/* First page */}
+                {/* First page 
+                Dynamically renders pagination buttons.
+                - Conditional class application using template literals.
+                - Demonstrates React reconciliation via key prop for minimal DOM mutation.*/}
                 {pageNumbers[0] > 1 && (
                     <>
                         <button
