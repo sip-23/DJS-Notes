@@ -8,7 +8,8 @@ import GenreFilter from "../utilities/genreFilter";
 import Sorter from "../utilities/podcastSorter";
 import Pagination from "../utilities/pagination";
 import Sidebar from "./Sidebar";
-import { useLayout } from "../layout/LayoutContext.jsx"
+import { useLayout } from "../layout/LayoutContext.jsx";
+import HomeRenderRow from "../views/HomeRenderRow"; // Import the new component
 
 /**
  * Home Component
@@ -136,6 +137,10 @@ const Home = () => {
         setCurrentPage(1);
     };
 
+    const handlePodcastSelect = (podcast) => {
+        console.log('Selected podcast:', podcast);
+    };
+
     const { openMobileSidebar } = useLayout();
 
     const handleSidebarToggle = (isOpen) => {
@@ -175,11 +180,35 @@ const Home = () => {
                 {/* Main Content */}
                 <div className={`main-content flex-1 w-full dark:text-white text-[#000] dark:bg-[#1a1a1a] bg-[#F4F4F4] p-4 lg:p-5 ${isSidebarOpen && window.innerWidth >= 767 ? 'xl:border-l xl:border-gray-300 xl:dark:border-[#333]' : ''}`}>
                     <div className="w-full flex flex-col gap-8">
-                        {/* Render grid for all podcasts */}
+                        {/* Welcome Section */}
+                        <div className="mb-6">
+                            <h1 className="text-4xl font-bold text-black dark:text-white mb-2">
+                                Welcome to Sippi-Cup Pod
+                            </h1>
+                            <p className="text-gray-600 dark:text-gray-400 text-lg">
+                                Discover your next favorite podcast from our curated collection
+                            </p>
+                        </div>
+
+                        {/* Randomized Recommended Shows */}
+                        {allPodcasts && allPodcasts.length > 0 && (
+                            <section className="mb-8">
+                                <h2 className="text-2xl font-bold text-black dark:text-white mb-6">
+                                    Recommended Shows
+                                </h2>
+                                <HomeRenderRow
+                                    title="Discover Something New"
+                                    allPodcasts={allPodcasts}
+                                    onPodcastSelect={handlePodcastSelect}
+                                />
+                            </section>
+                        )}
+
+                        {/* All Podcasts Grid Section */}
                         {allPodcasts && allPodcasts.length > 0 ? (
-                            <div>
+                            <section>
                                 <h2 className="font-bold text-2xl mb-4 lg:mb-2">
-                                    {searchTerm ? `Search Results for "${searchTerm}"` : 'Podcasts'}
+                                    {searchTerm ? `Search Results for "${searchTerm}"` : 'All Podcasts'}
                                     {filteredAndSortedPodcasts.length !== allPodcasts.length && (
                                         <span className="text-gray-400 text-lg ml-2">
                                             ({filteredAndSortedPodcasts.length} of {allPodcasts.length})
@@ -228,7 +257,7 @@ const Home = () => {
                                         )}
                                     </>
                                 )}
-                            </div>
+                            </section>
                         ) : (
                             <p className="text-gray-400">No podcasts found</p>
                         )}

@@ -20,16 +20,19 @@ export const AudioProvider = ({ children }) => {
   const [isRepeatActive, setIsRepeatActive] = useState(false);
   const [isShuffleActive, setIsShuffleActive] = useState(false);
   const [playbackHistory, setPlaybackHistory] = useState({});
+  const [recentlyPlayed, setRecentlyPlayed] = useState([]);
 
   // Load from localStorage on mount
   useEffect(() => {
     const savedVolume = localStorage.getItem('audioVolume');
     const savedHistory = localStorage.getItem('playbackHistory');
     const savedCurrentEpisode = localStorage.getItem('currentEpisode');
+    const savedRecentlyPlayed = localStorage.getItem('recentlyPlayedEpisodes');
 
     if (savedVolume) setVolume(parseInt(savedVolume));
     if (savedHistory) setPlaybackHistory(JSON.parse(savedHistory));
     if (savedCurrentEpisode) setCurrentEpisode(JSON.parse(savedCurrentEpisode));
+    if (savedRecentlyPlayed) setRecentlyPlayed(JSON.parse(savedRecentlyPlayed));
   }, []);
 
   // Save to localStorage when values change
@@ -46,6 +49,21 @@ export const AudioProvider = ({ children }) => {
       localStorage.setItem('currentEpisode', JSON.stringify(currentEpisode));
     }
   }, [currentEpisode]);
+
+  useEffect(() => {
+    localStorage.setItem('recentlyPlayedEpisodes', JSON.stringify(recentlyPlayed));
+  }, [recentlyPlayed]);
+
+  // Add this function to track recently played episodes
+  const trackRecentlyPlayed = (episodeData) => {
+    setRecentlyPlayed(prev => {
+      // Remove if already exists to avoid duplicates
+      const filtered = prev.filter(ep => ep.episodeId !== episodeData.episodeId);
+      // Add to beginning and limit to 10 episodes
+      const updated = [episodeData, ...filtered].slice(0, 10);
+      return updated;
+    });
+  };
 
   // Audio event handlers
   useEffect(() => {
@@ -133,7 +151,7 @@ export const AudioProvider = ({ children }) => {
     audioRef.current.pause();
     
     // Set new episode
-    setCurrentEpisode({
+    const newEpisode = {
       episodeId,
       audioUrl,
       title,
@@ -141,7 +159,12 @@ export const AudioProvider = ({ children }) => {
       episode,
       showTitle,
       showImage
-    });
+    };
+    
+    setCurrentEpisode(newEpisode);
+
+    // Track in recently played
+    trackRecentlyPlayed(newEpisode);
 
     // Load and play new audio
     audioRef.current.src = audioUrl;
@@ -210,11 +233,18 @@ export const AudioProvider = ({ children }) => {
 
   const resetHistory = () => {
     setPlaybackHistory({});
+    setRecentlyPlayed([]);
     localStorage.removeItem('playbackHistory');
+    localStorage.removeItem('recentlyPlayedEpisodes');
   };
 
   const getEpisodeProgress = (episodeId) => {
     return playbackHistory[episodeId] || null;
+  };
+
+  const clearRecentlyPlayed = () => {
+    setRecentlyPlayed([]);
+    localStorage.removeItem('recentlyPlayedEpisodes');
   };
 
   const value = {
@@ -227,6 +257,7 @@ export const AudioProvider = ({ children }) => {
     isRepeatActive,
     isShuffleActive,
     playbackHistory,
+    recentlyPlayed,
     
     // Actions
     playEpisode,
@@ -239,7 +270,9 @@ export const AudioProvider = ({ children }) => {
     toggleShuffle,
     stopPlayback,
     resetHistory,
-    getEpisodeProgress
+    getEpisodeProgress,
+    clearRecentlyPlayed,
+    trackRecentlyPlayed
   };
 
   return (
