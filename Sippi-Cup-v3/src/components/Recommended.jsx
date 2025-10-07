@@ -41,7 +41,6 @@ const Recommended = () => {
 
         // Get unique show IDs from favorites
         const favoriteShowIds = [...new Set(favorites.map(fav => {
-            // Extract podcast ID from episodeId (format: "podcastId-sX-eX")
             const match = fav.episodeId.match(/^([^-]+)-s\d+-e\d+$/);
             return match ? match[1] : null;
         }))].filter(Boolean);
@@ -65,7 +64,7 @@ const Recommended = () => {
 
             for (const genreId of favoriteGenres) {
                 try {
-                    // Fetch genre name
+                    // Fetch genre name with error handling
                     const genreResponse = await fetch(`https://podcast-api.netlify.app/genre/${genreId}`);
                     if (genreResponse.ok) {
                         const genreData = await genreResponse.json();
@@ -84,6 +83,7 @@ const Recommended = () => {
                     }
                 } catch (error) {
                     console.error(`Error fetching genre ${genreId}:`, error);
+                    // Continue with other genres even if one fails
                 }
             }
 
@@ -98,16 +98,7 @@ const Recommended = () => {
         console.log('Search term:', term);
     };
 
-    const handleSidebarToggle = (isOpen) => {
-        if (isOpen) {
-            openMobileSidebar();
-        } else {
-            closeMobileSidebar();
-        }
-    };
-
     const handlePodcastSelect = (podcast) => {
-        // Handle podcast selection if needed
         console.log('Selected podcast:', podcast);
     };
 
@@ -118,26 +109,35 @@ const Recommended = () => {
             {/* Mobile Sidebar Overlay */}
             {isMobileSidebarOpen && (
                 <div 
-                    className="xl:relative sm:fixed inset-0 dark:bg-[#1a1a1a] bg-[#F4F4F4] bg-opacity-50 z-30 lg:hidden"
+                    className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
                     onClick={closeMobileSidebar}
                 />
             )}
 
-            <div className="min-h-screen flex flex-col lg:flex-row">
-                {/* Sidebar - Mobile/Tablet: Centered modal, Desktop: Normal sidebar */}
-                <div className={`${isMobileSidebarOpen ? 'sm:relative inset-0 flex items-center justify-center z-40' : 'hidden'}`}>
+            <div className="min-h-screen flex">
+                {/* Sidebar - Fixed positioning */}
+                <div className={`
+                    fixed lg:static z-50
+                    ${isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+                    transition-transform duration-300 ease-in-out
+                `}>
                     <Sidebar />
                 </div>
             
                 {/* Main Content */}
-                <div className={`flex-1 w-full dark:text-white text-[#000] dark:bg-[#1a1a1a] bg-[#F4F4F4] p-4 lg:p-5 ${
-                    isSidebarOpen ? 'xl:border-l xl:border-gray-300 xl:dark:border-[#333]' : ''
-                }`}>
-                    <div className="w-full flex flex-col">
+                <div className={`
+                    flex-1 min-h-screen transition-all duration-300
+                    dark:text-white text-[#000] 
+                    dark:bg-[#1a1a1a] bg-[#F4F4F4] 
+                    p-4 lg:p-6
+                    ${isSidebarOpen ? 'lg:ml-0' : 'lg:ml-0'}
+                    w-full
+                `}>
+                    <div className="max-w-full">
                         <h1 className="text-3xl font-bold mb-6">Recommended For You</h1>
 
                         {/* Debug info - remove in production */}
-                        <div className="mb-4 p-2 bg-blue-900 text-blue-200 rounded text-sm">
+                        <div className="mb-4 p-2 bg-yellow-900 text-yellow-200 rounded text-sm">
                             Found {Object.keys(recommendations).length} genre recommendations
                         </div>
 
@@ -170,7 +170,7 @@ const Recommended = () => {
                                 <h2 className="text-2xl font-bold mb-6">Popular Podcasts</h2>
                                 <RenderRow
                                     title="Trending Now"
-                                    podcasts={allPodcasts.slice(0, 10)} // Show first 10 podcasts
+                                    podcasts={allPodcasts.slice(0, 10)}
                                     onPodcastSelect={handlePodcastSelect}
                                 />
                             </div>

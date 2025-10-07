@@ -3,8 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useFetchPodcasts } from "../utilities/fetchPodcasts";
 import LoadingSpinner from "../utilities/loadingSpinner";
 import ErrorDisplay from "../utilities/loadingError";
-
-const logo = {id: 3, image: "./src/assets/SippiCup_logo.png", alt: "logo"};
+import { useAudio } from '../utilities/AudioContext';
 
 /**
  * PodcastDetail component which shows detailed information about a selected podcast
@@ -140,9 +139,19 @@ const PodcastDetail = () => {
         setSelectedSeason(season);
     };
 
+    const formatTime = (seconds) => {
+        if (!seconds || isNaN(seconds)) return '0:00';
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    };
+
     // Episode button component
     const EpisodeButton = ({ episode, seasonNumber }) => {
         const [isFavorited, setIsFavorited] = useState(false);
+        const { playEpisode, getEpisodeProgress, currentEpisode, isPlaying } = useAudio();
+
+        const episodeProgress = getEpisodeProgress(`${podcastData.id}-s${seasonNumber}-e${episode.episode}`);
 
         useEffect(() => {
             // Check if this episode is already favorited
@@ -157,8 +166,25 @@ const PodcastDetail = () => {
         }, [episode.episode, seasonNumber, podcastData.id]);
 
         const handlePlayEpisode = () => {
-            console.log(`Playing episode: ${episode.title}`, episode.file);
+            const episodeData = {
+                episodeId: `${podcastData.id}-s${seasonNumber}-e${episode.episode}`,
+                audioUrl: episode.file, 
+                title: episode.title,
+                season: seasonNumber,
+                episode: episode.episode,
+                showTitle: podcastData.title,
+                showImage: podcastData.image
+            };
+            
+            playEpisode(episodeData);
         };
+
+        const getProgressPercentage = () => {
+            if (!episodeProgress || !episodeProgress.duration) return 0;
+            return (episodeProgress.currentTime / episodeProgress.duration) * 100;
+        };
+
+        const isCurrentlyPlaying = currentEpisode?.episodeId === `${podcastData.id}-s${seasonNumber}-e${episode.episode}`;
 
         const handleToggleFavorite = (e) => {
             e.stopPropagation();
@@ -190,8 +216,8 @@ const PodcastDetail = () => {
         };
 
         return (
-            <div className=" hover:bg-[#282828] bg-[#fff] flex items-center justify-between p-4 dark:bg-[#181818] rounded-lg dark:hover:bg-[#282828] transition-colors mb-3">
-                <div className="flex items-center space-x-4 flex-1 w-[50%] ">
+            <div className="hover:bg-[#282828] bg-[#fff] flex items-center justify-between p-4 dark:bg-[#181818] rounded-lg dark:hover:bg-[#282828] transition-colors mb-3">
+                <div className="flex items-center space-x-4 flex-1 w-[50%]">
                     <img 
                         src={selectedSeason?.image || podcastData?.image || "/src/assets/SippiCup_logo.png"} 
                         alt="Episode cover" 
@@ -201,6 +227,9 @@ const PodcastDetail = () => {
                         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-1">
                             <span className="font-medium dark:text-white text-[#000] text-sm md:text-base truncate">
                                 {episode.title}
+                                {isCurrentlyPlaying && (
+                                    <span className="ml-2 text-xs text-[#9D610E]">● Playing</span>
+                                )}
                             </span>
                             <span className="text-xs dark:text-[#b3b3b3] text-[#000] md:ml-4">
                                 Episode {episode.episode}
@@ -209,6 +238,26 @@ const PodcastDetail = () => {
                         <p className="text-xs dark:text-[#b3b3b3] text-[#000] line-clamp-2">
                             {episode.description}
                         </p>
+                        
+                        {/* Progress indicator */}
+                        {episodeProgress && (
+                            <div className="mt-2">
+                                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1">
+                                    <div 
+                                        className="bg-[#9D610E] h-1 rounded-full" 
+                                        style={{ width: `${getProgressPercentage()}%` }}
+                                    />
+                                </div>
+                                <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                    <span>
+                                        {episodeProgress.completed ? 'Completed' : `${Math.round(getProgressPercentage())}% played`}
+                                    </span>
+                                    <span>
+                                        {formatTime(episodeProgress.currentTime)} / {formatTime(episodeProgress.duration)}
+                                    </span>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
 
@@ -221,11 +270,7 @@ const PodcastDetail = () => {
                         }`}
                         title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
                     >
-                        <svg 
-                            className="w-5 h-5" 
-                            fill="currentColor" 
-                            viewBox="0 0 24 24"
-                        >
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                         </svg>
                     </button>
@@ -234,15 +279,26 @@ const PodcastDetail = () => {
                         onClick={handlePlayEpisode}
                         className="ml-4 flex items-center space-x-2 bg-[#65350F] hover:bg-[#1ed760] text-white px-4 py-2 rounded-full text-sm font-medium transition-colors min-w-[120px] justify-center"
                     >
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                        <span>Listen Now</span>
+                        {isCurrentlyPlaying && isPlaying ? (
+                            <>
+                                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M6 4h4v16H6zM14 4h4v16h-4z"/>
+                                </svg>
+                                <span>Pause</span>
+                            </>
+                        ) : (
+                            <>
+                                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                                <span>{episodeProgress ? 'Resume' : 'Listen Now'}</span>
+                            </>
+                        )}
                     </button>
                 </div>
             </div>
         );
-    };
+    }; // This was missing - closing the EpisodeButton component
 
     // Handle back navigation
     const handleBackClick = () => {
