@@ -1,4 +1,4 @@
-// 1. I then created React functional components using hooks (useState, useEffect) for state management and UI interaction logic
+// 1. I then created React functional components using hooks (useState, useEffect) for state management and UI interaction logic 
 import { useState, useEffect } from "react";
 // 2. useState: manages local component state, triggering re-renders when the value changes.
 // 3. useEffect is used  for side effects where I fetch genres dynamically

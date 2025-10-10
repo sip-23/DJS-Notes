@@ -1,4 +1,5 @@
 // 1. I first Import the PodcastCard component, which renders individual podcast  card with respective details.
+
 import PodcastCard from '../components/PodcastsCard';
 
 /**

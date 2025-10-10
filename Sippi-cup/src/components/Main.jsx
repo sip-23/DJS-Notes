@@ -1,4 +1,4 @@
-// 1. Import dependencies:
+// 1. Import dependencies: 
 // - useState from React: is a React Hook for local component state.
 // - useMemo is a Hook that memoizes (caches) expensive computations until dependencies change.
 import { useState, useMemo } from "react";

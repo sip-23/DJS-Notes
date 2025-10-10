@@ -1,4 +1,4 @@
-// I first imported the React hooks:
+// I first imported the React hooks: 
 // - useState: for managing state (data, loading, error).
 // - useEffect: for running side effects (fetching data when the component mounts or apiUrl changes)
 import { useState, useEffect } from 'react';

@@ -1,4 +1,4 @@
-// 1. Imported useState only, as no side effects are required here.
+// 1. Imported useState only, as no side effects are required here. 
 import { useState } from "react";
 
 /**
