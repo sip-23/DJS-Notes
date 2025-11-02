@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo } from "react"; 
 import Header from "./Header";
 import PodcastGrid from "../views/renderGrid";
 import LoadingSpinner from "../utilities/loadingSpinner";
@@ -9,7 +9,7 @@ import Sorter from "../utilities/podcastSorter";
 import Pagination from "../utilities/pagination";
 import Sidebar from "./Sidebar";
 import { useLayout } from "../layout/LayoutContext.jsx";
-import HomeRenderRow from "../views/HomeRenderRow"; // Import the new component
+import HomeRenderRow from "../views/HomeRenderRow";
 
 /**
  * Home Component

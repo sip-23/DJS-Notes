@@ -22,7 +22,7 @@ function App() {
                 <Route path="/podcast/:id" element={<PodcastDetail />} />
                 <Route path="/popular" element={<Popular />} />
                 <Route path="/recommended" element={<Recommended />} />
-                <Route path="/resume-playlist" element={<ResumePlaylistPage />} /> {/* Add this route */}
+                <Route path="/resume-playlist" element={<ResumePlaylistPage />} />
               </Routes>
               <GlobalAudioPlayer />
             </div>

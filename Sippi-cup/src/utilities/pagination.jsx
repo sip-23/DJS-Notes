@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
  * Pagination Component
  * 
  * The count or numbered pages with navigation buttons 
- * @component
+ * @component 
  */
 
 // 2. I defined my React functional component using an arrow function

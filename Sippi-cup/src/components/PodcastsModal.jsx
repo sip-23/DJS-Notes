@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { genres } from "../../../data.js";
+import { genres } from "../../../data.js"; 
 // React hooks:
 // --- useState: local state container (React’s equivalent of internal mutable storage).
 // --- useEffect: manages side effects like data fetching, DOM event handling, or state cleanup tied to lifecycle.

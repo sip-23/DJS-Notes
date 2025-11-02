@@ -12,7 +12,7 @@ import { useState, useEffect, useRef } from "react";
 
 // 3. The Child component, receives onSearch prop from <Home /> custom element.
 const Header = ({ onSearch }) => {
-    // 4. I Then used the useDtate hook.
+    // 4. I Then used the useState hook.
     // - The hooks outputs an array of 2 elements:
     // --- The initialised value / varaible
     // --- A function: this function is used to update this state. (Setter)

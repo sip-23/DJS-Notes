@@ -298,7 +298,7 @@ const PodcastDetail = () => {
                 </div>
             </div>
         );
-    }; // This was missing - closing the EpisodeButton component
+    };
 
     // Handle back navigation
     const handleBackClick = () => {
@@ -318,7 +318,7 @@ const PodcastDetail = () => {
 
     if (!podcastData) {
         return (
-            <div className="min-h-screen darl:bg-[#121212] bg-[#f4f4f4] flex items-center justify-center">
+            <div className="min-h-screen dark:bg-[#121212] bg-[#f4f4f4] flex items-center justify-center">
                 <div className="dark:text-[#fff] text-[#000] text-lg text-center">
                     <p>Podcast not found</p>
                     <button 

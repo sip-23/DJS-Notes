@@ -1,5 +1,5 @@
 // 1. I Import React’s useState hook to manage internal component state.
-import { useState } from 'react';
+import { useState } from 'react'; 
 
 /**
  * ErrorDisplay Component

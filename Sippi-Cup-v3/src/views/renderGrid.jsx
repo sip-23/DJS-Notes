@@ -21,7 +21,7 @@ const PodcastGrid = ({ podcasts, isSidebarOpen = true }) => {
     return (
       <div className="text-center py-10 text-gray-500">
         No podcasts found
-      </div>
+      </div> 
     );
   }
 

@@ -11,7 +11,7 @@ import { useState } from "react";
 // - sortCriteria maintains internal UI state; initial value 'desc' (descending).
 // - onSortChange again allows the parent component to react to this change.
 const Sorter = ({ onSortChange }) => {
-    const [sortCriteria, setSortCriteria] = useState('desc');
+    const [sortCriteria, setSortCriteria] = useState('desc'); 
 
     // Sort options configuration
     // 4. Then I defined Static array of configuration objects, enabling data-driven rendering of the dropdown.

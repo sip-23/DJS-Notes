@@ -6,7 +6,7 @@
  * - A welcome message
  * - Sippi-Cup logo
  *
- * @component
+ * @component 
  */
 
 // 1. Using arrow function, I Declare a functional React component named LoadingSpinner
