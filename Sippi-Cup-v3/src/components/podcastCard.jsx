@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
 /**
  * This component builds and renders a podcast card with image, title, genres, seasons, and last updated date.
